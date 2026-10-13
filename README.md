@@ -1,8 +1,8 @@
-# Answered
+# The Always-On Agentic Front Office
 
-Reference code for the article series *Answered* by Robert H. Mowery III ([robertmowery.com](https://robertmowery.com)).
+Reference code for the article series *The Always-On Agentic Front Office* by Robert H. Mowery III ([robertmowery.com](https://robertmowery.com)).
 
-Agentic voice on Google's Gemini Enterprise for Customer Experience (GECX) stack, built for small and mid-market businesses that can't afford a missed call. By the end of the series this repository is a working MVP contact center: a Google-provisioned phone number answered by a CX Agent Studio agent that routes by business hours, books jobs into Google Calendar, sells through an ADK commerce agent over A2A and the Universal Commerce Protocol, hands off to a human with context, and proves itself with evals and a cost-per-call number.
+Agentic CX for businesses that can't miss a call, built on Google's Gemini Enterprise for Customer Experience (GECX) stack. By the end of the series this repository is a working MVP contact center: a Google-provisioned phone number answered by a CX Agent Studio agent that routes by business hours, books jobs into Google Calendar, sells through an ADK commerce agent over A2A and the Universal Commerce Protocol, hands off to a human with context, and proves itself with evals and a cost-per-call number.
 
 Each part pairs an executive article on Medium with a technical companion on Substack. Every number in the articles comes from code and results files in this repository.
 
