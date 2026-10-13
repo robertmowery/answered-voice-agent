@@ -1,0 +1,22 @@
+__pycache__/
+*.pyc
+.venv/
+.env
+.env.*
+*.egg-info/
+.pytest_cache/
+.DS_Store
+.adk/
+*.db
+!.env.example
+logs/
+
+# Terraform: state and local settings stay on your machine
+.terraform/
+*.tfstate
+*.tfstate.*
+*.tfvars
+!*.tfvars.example
+
+# Local service account keys never belong in the repo
+*-key.json
