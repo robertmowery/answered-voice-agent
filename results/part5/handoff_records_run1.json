@@ -1,0 +1,44 @@
+[
+  {
+    "caller_name": null,
+    "queue": "billing",
+    "summary": "Caller was charged twice for visit on October 3rd, invoice 4471, and is requesting a refund.",
+    "callback_number": null,
+    "session_id": null,
+    "zip_code": null,
+    "intent": "refund double charge",
+    "booking_or_ticket": "Invoice 4471",
+    "handoff_id": "HO-ADCFF1993F",
+    "location_name": "Brightwater Home Services",
+    "created_at": "2026-10-15T11:06:24.810649+00:00",
+    "location": "brightwater-central"
+  },
+  {
+    "caller_name": null,
+    "queue": "service",
+    "summary": "Caller is calling for the third time regarding noise from a newly installed furnace and requested to speak with a person.",
+    "callback_number": null,
+    "session_id": null,
+    "zip_code": null,
+    "intent": "complaint about furnace noise",
+    "booking_or_ticket": null,
+    "handoff_id": "HO-A45E347943",
+    "location_name": "Brightwater Home Services",
+    "created_at": "2026-10-15T11:06:33.965302+00:00",
+    "location": "brightwater-central"
+  },
+  {
+    "caller_name": "Ana Ruiz",
+    "queue": "billing",
+    "summary": "Caller wants to pay an outstanding invoice. Advised not to share card details over the phone. Transferring to billing.",
+    "callback_number": "301-555-0166",
+    "session_id": null,
+    "zip_code": "20910",
+    "intent": "pay outstanding invoice",
+    "booking_or_ticket": null,
+    "handoff_id": "HO-2F3986732C",
+    "location_name": "Brightwater North (formerly Keystone Heating)",
+    "created_at": "2026-10-15T11:06:40.897858+00:00",
+    "location": "brightwater-north"
+  }
+]

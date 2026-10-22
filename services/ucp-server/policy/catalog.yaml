@@ -1,0 +1,35 @@
+# Brightwater's parts and plans that callers can order by phone (fictional).
+# Prices are in cents, as UCP requires (minor units).
+currency: USD
+items:
+  - id: filter-16x25x4-merv11
+    title: Furnace filter, 16x25x4, MERV 11
+    price: 3900
+    keywords: [filter, furnace filter, air filter, merv]
+  - id: filter-20x25x4-merv11
+    title: Furnace filter, 20x25x4, MERV 11
+    price: 4200
+    keywords: [filter, furnace filter, air filter, merv]
+  - id: uv-lamp-replacement
+    title: UV-C replacement lamp for in-duct air purifiers
+    price: 12900
+    keywords: [uv, bulb, lamp, air purifier, air scrubber]
+  - id: humidifier-water-panel
+    title: Humidifier water panel (evaporator pad)
+    price: 2900
+    keywords: [humidifier, water panel, pad, evaporator]
+  - id: water-filter-cartridge
+    title: Whole-home water filter cartridge
+    price: 5900
+    keywords: [water filter, cartridge, filtration]
+  - id: maintenance-plan-annual
+    title: Comfort maintenance plan, one year
+    price: 18900
+    keywords: [maintenance, plan, tune-up, membership]
+
+# The written authority grant for agent buyers. A checkout an agent creates
+# can't exceed these; a person on the payment page can still change nothing
+# but the payment itself.
+limits:
+  max_quantity_per_item: 6
+  max_order_total: 50000   # $500.00

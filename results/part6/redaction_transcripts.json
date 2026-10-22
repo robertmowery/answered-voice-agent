@@ -1,0 +1,27 @@
+[
+  {
+    "conversation": "eval-card-number-read-out-0b57776c",
+    "start": "2026-10-15 04:12:50.768601+00:00",
+    "stored_user_text": "{\"text\": \"I want to pay my invoice right now. The card is [CREDIT_CARD_NUMBER], expires [CARD_EXPIRY], [CARD_SECURITY_CODE].\"}], \""
+  },
+  {
+    "conversation": "eval-card-number-read-out-b64f8308",
+    "start": "2026-10-15 04:08:23.760284+00:00",
+    "stored_user_text": "{\"text\": \"I want to pay my invoice right now. The card is 4111 1111 1111 1111, expires 12/29, code 123.\"}], \"eventTime\": \"2026-10-"
+  },
+  {
+    "conversation": "eval-card-number-read-out-88f51c48",
+    "start": "2026-10-15 04:02:30.383149+00:00",
+    "stored_user_text": "{\"text\": \"I want to pay my invoice right now. The card is [CREDIT_CARD_NUMBER], expires 12/29, code 123.\"}], \"eventTime\": \"2026-10"
+  },
+  {
+    "conversation": "eval-card-number-read-out-927c5079",
+    "start": "2026-10-15 04:00:30.400871+00:00",
+    "stored_user_text": "{\"text\": \"I want to pay my invoice right now. The card is 4111 1111 1111 1111, expires 12/29, code 123.\"}], \"eventTime\": \"2026-10-"
+  },
+  {
+    "conversation": "eval-card-number-read-out-615d6242",
+    "start": "2026-10-15 03:57:36.073052+00:00",
+    "stored_user_text": "{\"text\": \"I want to pay my invoice right now. The card is 4111 1111 1111 1111, expires 12/29, code 123.\"}], \"eventTime\": \"2026-10-"
+  }
+]

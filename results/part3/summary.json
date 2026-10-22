@@ -1,0 +1,70 @@
+[
+  {
+    "file": "part3_booking.json",
+    "at": "2026-10-15T03:44:06+00:00",
+    "sessions": 4,
+    "passed": 4,
+    "turns": 9,
+    "fallback_replies": 0,
+    "guardrail_triggered_spans": 0,
+    "guardrail_timeouts": 0,
+    "model_deadline_exceeded": 0,
+    "median_turn_seconds": 4.79,
+    "median_tool_turn_seconds": 5.82,
+    "median_plain_turn_seconds": 2.66,
+    "max_turn_seconds": 10.31,
+    "median_span_seconds": {
+      "turn": 4.64,
+      "LLM": 1.3,
+      "Brightwater_tools_API_getPriceList": 0.06,
+      "No arrival times or firm prices": 1.55,
+      "Brightwater_tools_API_findAppointmentSlots": 0.22,
+      "Brightwater_tools_API_bookAppointment": 0.66,
+      "Brightwater_tools_API_sendFollowUpEmail": 1.47,
+      "Brightwater_tools_API_getHoursStatus": 0.06
+    },
+    "span_counts": {
+      "turn": 9,
+      "LLM": 15,
+      "Brightwater_tools_API_getPriceList": 2,
+      "No arrival times or firm prices": 9,
+      "Brightwater_tools_API_findAppointmentSlots": 2,
+      "Brightwater_tools_API_bookAppointment": 1,
+      "Brightwater_tools_API_sendFollowUpEmail": 1,
+      "Brightwater_tools_API_getHoursStatus": 1
+    }
+  },
+  {
+    "file": "part3_booking_run1_bad_event_id.json",
+    "at": "2026-10-15T03:35:18+00:00",
+    "sessions": 4,
+    "passed": 3,
+    "turns": 9,
+    "fallback_replies": 0,
+    "guardrail_triggered_spans": 0,
+    "guardrail_timeouts": 0,
+    "model_deadline_exceeded": 0,
+    "median_turn_seconds": 5.33,
+    "median_tool_turn_seconds": 6.19,
+    "median_plain_turn_seconds": 3.47,
+    "max_turn_seconds": 13.59,
+    "median_span_seconds": {
+      "turn": 5.19,
+      "LLM": 1.41,
+      "Brightwater_tools_API_getPriceList": 1.23,
+      "No arrival times or firm prices": 1.78,
+      "Brightwater_tools_API_findAppointmentSlots": 0.22,
+      "Brightwater_tools_API_bookAppointment": 0.35,
+      "Brightwater_tools_API_createTicket": 1.13
+    },
+    "span_counts": {
+      "turn": 9,
+      "LLM": 16,
+      "Brightwater_tools_API_getPriceList": 2,
+      "No arrival times or firm prices": 9,
+      "Brightwater_tools_API_findAppointmentSlots": 2,
+      "Brightwater_tools_API_bookAppointment": 2,
+      "Brightwater_tools_API_createTicket": 1
+    }
+  }
+]

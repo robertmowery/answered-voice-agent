@@ -20,3 +20,11 @@ logs/
 
 # Local service account keys never belong in the repo
 *-key.json
+
+# Publishing tools: local caches
+.mypy_cache/
+.ruff_cache/
+
+# Terraform build artifacts (the zipped function source)
+infra/terraform/.build/
+.venv-commerce/

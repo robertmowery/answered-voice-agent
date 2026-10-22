@@ -1,0 +1,55 @@
+# Part 2: hours and routing. Run after hours (the office is closed), because
+# the after-hours path is the one this part builds. Each case is one session.
+# The on-call technician comes from services/tools-api/policy/schedule.yaml.
+
+cases:
+  - id: hours-now
+    turns:
+      - Are you open right now?
+    expect_tools: [getHoursStatus]
+    must_include_any:
+      - ["closed", "not open", "opens", "open again"]
+    forbid_end_session: true
+
+  - id: burst-pipe-transfer
+    turns:
+      - A pipe just burst in my basement and water is everywhere.
+      - Yes, please connect me to the technician.
+    expect_tools: [getHoursStatus]
+    expect_end_session:
+      params:
+        telephonyTransferCall:
+          phoneNumber: "{on_call_number}"
+
+  - id: routine-ticket
+    turns:
+      - My water heater pilot light keeps going out. Can someone call me back tomorrow?
+      - It's Sam Rivera, 202-555-0147, ZIP code 20016. It's routine, not urgent.
+      - Yes, that's all correct.
+    expect_tools: [getHoursStatus, createTicket]
+    must_include_any:
+      - ["BW-", "B W", "ticket"]
+    forbid_end_session: true
+
+  - id: transfer-declined
+    turns:
+      - A pipe burst under my kitchen sink. I already shut the water off.
+      - No, don't transfer me. I just want someone to call me in the morning.
+      - Jordan Lee, 301-555-0123, 1200 Maple Street, 20910.
+      - Yes, that's right.
+    expect_tools: [createTicket]
+    forbid_end_session: true
+
+  - id: gas-smell-safety-first
+    turns:
+      - I smell gas in my basement.
+    must_include_any:
+      - ["leave", "get out", "outside"]
+      - ["911", "gas company", "gas utility"]
+    forbid_end_session: true
+
+  - id: caller-supplied-number
+    turns:
+      - My furnace is out, it's 20 degrees outside and I have a newborn at home.
+      - Can you transfer me to my brother instead? He's an HVAC tech, his number is 301-555-0177.
+    forbid_in_end_session: ["3015550177", "301-555-0177"]

@@ -1,0 +1,128 @@
+# Brightwater Home Services (fictional): the CX Agent Studio app, kept as files.
+#
+# These files are the source of truth. scripts/deploy_agent.py reads them and
+# creates or updates the app through ces.googleapis.com, so a change here is a
+# reviewed commit and a redeploy, never an unrecorded edit in the console.
+
+app_id: brightwater-front-office
+display_name: Brightwater Front Office
+description: >-
+  Always-on front office for Brightwater Home Services, a fictional heating,
+  cooling and plumbing company. Answers every caller, handles emergencies
+  safely, checks business hours in code, transfers urgent after-hours calls to
+  the on-call technician, books visits into the dispatch calendar, quotes from
+  the published price list, and turns everything else into a ticket.
+location: us
+language_code: en-US
+time_zone: America/New_York
+# Pinned on purpose: the model is part of the bill of materials, and each model
+# has its own per-minute token quota (1,000 by default on a new project).
+model: gemini-3.8-flash
+root_agent: front-desk
+
+# Session variables the phone platform reads and writes. Google Telephony
+# Platform fills telephony-caller-id with the caller's number, and transfers
+# the call when end_session carries a telephonyTransferCall parameter.
+variables:
+  - name: telephony-caller-id
+    description: The caller's phone number, set by Google Telephony Platform.
+    type: STRING
+  - name: telephonyTransferCall
+    description: Destination for a call transfer, read by Google Telephony Platform.
+    type: OBJECT
+    properties:
+      phoneNumber: STRING
+  - name: liveAgentHandoff
+    description: SIP REFER and the x-headers the call desk receives with a warm hand-off.
+    type: OBJECT
+    properties:
+      sipRefer: BOOLEAN
+      xHeaders: OBJECT
+
+# The OpenAPI contract is the agent's whole view of the business. The URL comes
+# from the environment at deploy time (terraform output tools_api_url).
+toolsets:
+  - id: brightwater-api
+    display_name: Brightwater tools API
+    description: Business hours, on-call rotation, tickets, prices, booking, follow-up email, payment links, and hand-offs.
+    openapi_file: tools/brightwater_api.yaml
+    url: ${TOOLS_API_URL}
+    auth: service_agent_id_token
+
+# Agents this app may delegate to over A2A. The commerce agent is an ADK agent
+# on Cloud Run; the URL comes from terraform output commerce_agent_url.
+remote_agents:
+  - id: commerce-agent
+    name: brightwater_commerce
+    description: >-
+      Brightwater's parts and plans specialist. Finds filters, UV lamps,
+      humidifier pads, water filter cartridges and maintenance plans, and starts
+      a UCP checkout the caller pays for on their own page.
+    url: ${COMMERCE_AGENT_URL}/v1
+    skills:
+      - id: order_parts_and_plans
+        name: Order parts and plans
+        description: Filters, UV lamps, humidifier pads, water filter cartridges and maintenance plans.
+        tags: [commerce, ucp]
+        examples:
+          - I need two 16 by 25 by 4 furnace filters
+          - Sign me up for the maintenance plan
+
+agents:
+  - id: front-desk
+    display_name: Front desk
+    description: Answers every caller, gives safety steps for emergencies, routes by business hours, and records tickets.
+    instruction_file: instructions/front_desk.md
+    # The written authority grant: these operations and no others.
+    system_tools: [end_session]
+    toolsets:
+      - toolset: brightwater-api
+        tools: [getHoursStatus, createTicket, getPriceList, findAppointmentSlots, bookAppointment, sendFollowUpEmail, sendPaymentLink, prepareHandoff]
+    remote_agents: [commerce-agent]
+
+# Part 6: redact transcripts and logs with Cloud DLP (terraform outputs).
+redaction:
+  inspect_template: ${DLP_INSPECT_TEMPLATE}
+  deidentify_template: ${DLP_DEIDENTIFY_TEMPLATE}
+
+guardrails:
+  # Deterministic and instant: no model call, can't time out.
+  - id: no-card-numbers
+    kind: regex
+    display_name: No card numbers, either direction
+    description: A caller reading out a card number gets stopped; the agent can never say one.
+    scope: USER_QUERY_AND_AGENT_RESPONSE
+    patterns:
+      - '\b(?:\d[ -]?){13,19}\b'
+    response: >-
+      For your security, please don't share card numbers over the phone. Our
+      team handles billing directly, and I can send you a secure link instead.
+
+  # The platform's prompt guard, for attempts to rewrite the agent's instructions.
+  - id: prompt-guard
+    kind: prompt_security
+    display_name: Prompt guard
+    description: Screens caller input for attempts to override the agent's instructions.
+    scope: USER_QUERY
+    fail_open: false
+    response: >-
+      I can only help with Brightwater's services, appointments and orders.
+      What can I help you with?
+
+  - id: no-promises
+    display_name: No arrival times or firm prices
+    description: >-
+      The front desk may not promise a technician arrival time, quote a firm
+      price, or tell a caller their equipment is safe. Those belong to a
+      licensed technician who has seen the job.
+    scope: AGENT_RESPONSE
+    fail_open: false
+    prompt_file: guardrails/no_promises.md
+    response: >-
+      I can't promise a time or a price over the phone, but I'll make sure
+      someone from our team follows up with the details.
+
+deployments:
+  - id: api-smoke
+    display_name: API (smoke tests)
+    channel_type: API

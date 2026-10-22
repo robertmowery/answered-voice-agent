@@ -1,0 +1,155 @@
+{
+  "at": "2026-10-15T03:48:55+00:00",
+  "office_status_at_run": {
+    "open": false,
+    "reason": "after_hours",
+    "local_time": "Wednesday 11:48 PM EDT"
+  },
+  "deployment": "api-smoke",
+  "sessions": 1,
+  "turns": 4,
+  "passed": 0,
+  "turn_seconds": {
+    "median": 2.95,
+    "max": 5.4,
+    "min": 2.61
+  },
+  "note": "Text sessions through runSession; each turn timed from request to full reply, tool calls included.",
+  "cases": [
+    {
+      "id": "order-filters",
+      "turns": [
+        {
+          "say": "I'd like to order two furnace filters, the 16 by 25 by 4 size.",
+          "reply": "I can certainly help you order those furnace filters. May I please have your full name and your email address?",
+          "seconds": 2.61,
+          "tools": [],
+          "end_session": null,
+          "spans": [
+            {
+              "name": "turn",
+              "seconds": 2.150748
+            },
+            {
+              "name": "LLM",
+              "seconds": 0.908997,
+              "input token count": 3909.0,
+              "time to first chunk (ms)": 908.0
+            },
+            {
+              "name": "No arrival times or firm prices",
+              "seconds": 1.142625,
+              "triggered": false,
+              "reason": "The agent's response simply asks for the caller's contact details to assist with ordering filters and does not violate any policy rules."
+            }
+          ]
+        },
+        {
+          "say": "Sam Rivera. My email is sam.rivera@example.com, that's s a m dot r i v e r a at example dot com.",
+          "reply": "I am having trouble connecting to our parts ordering system right now. May I take your phone number and address so our office can follow up with you?",
+          "seconds": 5.4,
+          "tools": [
+            "brightwater_commerce",
+            "getHoursStatus"
+          ],
+          "end_session": null,
+          "spans": [
+            {
+              "name": "turn",
+              "seconds": 5.299018
+            },
+            {
+              "name": "LLM",
+              "seconds": 0.95233,
+              "input token count": 3974.0,
+              "time to first chunk (ms)": 952.0
+            },
+            {
+              "name": "brightwater_commerce",
+              "seconds": 0.097232,
+              "error": "A2A call failed with status: generic::INTERNAL: UNREACHABLE_5xx. Body: {\"message\":\"unknown exception\"}"
+            },
+            {
+              "name": "LLM",
+              "seconds": 0.872849,
+              "input token count": 4063.0,
+              "time to first chunk (ms)": 871.0
+            },
+            {
+              "name": "Brightwater_tools_API_getHoursStatus",
+              "seconds": 0.084142
+            },
+            {
+              "name": "LLM",
+              "seconds": 1.288786,
+              "input token count": 4235.0,
+              "time to first chunk (ms)": 1288.0
+            },
+            {
+              "name": "No arrival times or firm prices",
+              "seconds": 1.903041,
+              "triggered": false,
+              "reason": "The agent's reply simply asks for contact details for an office follow-up and does not violate any policy rules."
+            }
+          ]
+        },
+        {
+          "say": "Yes, that's correct.",
+          "reply": "Could you please share your phone number and your service address or ZIP code?",
+          "seconds": 3.18,
+          "tools": [],
+          "end_session": null,
+          "spans": [
+            {
+              "name": "turn",
+              "seconds": 3.098786
+            },
+            {
+              "name": "LLM",
+              "seconds": 0.89038,
+              "input token count": 4282.0,
+              "time to first chunk (ms)": 890.0
+            },
+            {
+              "name": "No arrival times or firm prices",
+              "seconds": 2.112495,
+              "triggered": false,
+              "reason": "The agent's response simply asks for contact details to follow up and does not violate any policy rules."
+            }
+          ]
+        },
+        {
+          "say": "Yes, go ahead.",
+          "reply": "What is the best phone number to reach you, and what is your address or ZIP code?",
+          "seconds": 2.72,
+          "tools": [],
+          "end_session": null,
+          "spans": [
+            {
+              "name": "turn",
+              "seconds": 2.632452
+            },
+            {
+              "name": "LLM",
+              "seconds": 1.024356,
+              "input token count": 4312.0,
+              "time to first chunk (ms)": 1023.0
+            },
+            {
+              "name": "No arrival times or firm prices",
+              "seconds": 1.511857,
+              "triggered": false,
+              "reason": "The agent is simply asking for contact details to follow up and does not violate any policy rules."
+            }
+          ]
+        }
+      ],
+      "passed": false,
+      "failures": [
+        "final reply missing any of ['78', 'seventy-eight']",
+        "never called commerce-agent",
+        "never called sendPaymentLink"
+      ]
+    }
+  ]
+}

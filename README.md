@@ -18,9 +18,17 @@ Each part pairs an executive article on Medium with a technical companion on Sub
 
 The company used throughout, Brightwater Home Services, is fictional, and its data is synthetic.
 
-## Status
+## Quick start
 
-Part 1 code lands here before its articles publish on November 4, 2026. Setup instructions arrive with it.
+```bash
+export PROJECT=your-new-project-id
+make venv
+make landing-zone   # APIs, $40 budget, kill switch
+make deploy         # the agent, from agent/
+make smoke          # eight test conversations, about $4
+```
+
+Then attach a Google-provisioned phone number in the CX Agent Studio console. Each part has a step-by-step guide in [docs/](docs/), starting with [Part 1](docs/part1.md). `make teardown` removes everything.
 
 ## License
 

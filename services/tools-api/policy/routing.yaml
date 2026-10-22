@@ -1,0 +1,33 @@
+# Mid-market Brightwater (fictional): three locations after two acquisitions,
+# one 12-seat call desk. When a caller needs a person, the agent hands off to
+# a queue on the call desk with a summary, so nobody asks the caller to start over.
+#
+# Numbers are placeholders from the 555-01xx fiction range. Set real queue
+# numbers with QUEUE_NUMBERS=billing=+1...,scheduling=+1...,service=+1...
+
+locations:
+  - id: brightwater-central
+    name: Brightwater Home Services
+    zip_prefixes: ["200", "201"]
+  - id: brightwater-north
+    name: Brightwater North (formerly Keystone Heating)
+    zip_prefixes: ["208", "209"]
+  - id: brightwater-east
+    name: Brightwater East (formerly Harbor Plumbing)
+    zip_prefixes: ["207", "210", "211", "212"]
+
+queues:
+  billing:
+    description: Invoices, payments, refunds, financing, warranty claims
+    number: "+12025550111"
+  scheduling:
+    description: Changing or canceling a booked visit when the agent can't
+    number: "+12025550112"
+  service:
+    description: Technical questions a technician should answer, complaints about a visit
+    number: "+12025550113"
+
+# SIP headers a contact-center platform receives with the call. Keep them short:
+# the full context lives behind the handoff ID, not in the header.
+headers:
+  max_value_length: 128

@@ -1,0 +1,60 @@
+[
+  {
+    "file": "part4_commerce.json",
+    "at": "2026-10-15T03:53:37+00:00",
+    "sessions": 3,
+    "passed": 2,
+    "turns": 6,
+    "fallback_replies": 1,
+    "guardrail_triggered_spans": 1,
+    "guardrail_timeouts": 1,
+    "model_deadline_exceeded": 0,
+    "median_turn_seconds": 9.64,
+    "median_tool_turn_seconds": 11.4,
+    "median_plain_turn_seconds": 3.35,
+    "max_turn_seconds": 20.99,
+    "median_span_seconds": {
+      "turn": 9.52,
+      "LLM": 1.25,
+      "No arrival times or firm prices": 1.59,
+      "brightwater_commerce": 4.81,
+      "Brightwater_tools_API_sendPaymentLink": 0.16
+    },
+    "span_counts": {
+      "turn": 6,
+      "LLM": 12,
+      "No arrival times or firm prices": 6,
+      "brightwater_commerce": 4,
+      "Brightwater_tools_API_sendPaymentLink": 2
+    }
+  },
+  {
+    "file": "part4_commerce_run3_first_success.json",
+    "at": "2026-10-15T03:52:27+00:00",
+    "sessions": 1,
+    "passed": 0,
+    "turns": 4,
+    "fallback_replies": 0,
+    "guardrail_triggered_spans": 0,
+    "guardrail_timeouts": 0,
+    "model_deadline_exceeded": 0,
+    "median_turn_seconds": 3.42,
+    "median_tool_turn_seconds": 16.18,
+    "median_plain_turn_seconds": 3.09,
+    "max_turn_seconds": 16.18,
+    "median_span_seconds": {
+      "turn": 3.1,
+      "LLM": 1.03,
+      "No arrival times or firm prices": 1.68,
+      "brightwater_commerce": 10.37,
+      "Brightwater_tools_API_sendPaymentLink": 0.53
+    },
+    "span_counts": {
+      "turn": 4,
+      "LLM": 6,
+      "No arrival times or firm prices": 4,
+      "brightwater_commerce": 1,
+      "Brightwater_tools_API_sendPaymentLink": 1
+    }
+  }
+]

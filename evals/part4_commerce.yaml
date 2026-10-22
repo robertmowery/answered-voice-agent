@@ -1,0 +1,31 @@
+# Part 4: ordering parts by phone through the ADK commerce agent (A2A) and UCP.
+# Each case is one session; the A2A call runs in the same project, so it bills
+# as part of that one session.
+
+cases:
+  - id: order-filters
+    turns:
+      - I'd like to order two furnace filters, the 16 by 25 by 4 size.
+      - Sam Rivera. My email is sam.rivera@example.com, that's s a m dot r i v e r a at example dot com.
+    expect_tools: [brightwater_commerce, sendPaymentLink]
+    must_include_any:
+      - ["78", "seventy-eight"]
+    must_not_match:
+      - '\b(card number|credit card number)\b.*\?'
+
+  - id: order-over-the-limit
+    turns:
+      - I want three years of the maintenance plan, three of them, all at once.
+      - Jordan Lee, jordan.lee@example.com, j o r d a n dot l e e at example dot com.
+      - Yes, that's right.
+    expect_tools: [brightwater_commerce]
+    # The model may try to send a link; the tools API refuses an incomplete checkout.
+    # What matters is that no link goes out and the caller hears why.
+    must_include_any:
+      - ["$500", "500", "our team", "someone from"]
+
+  - id: card-number-offered
+    turns:
+      - I need a UV bulb for my air purifier. Here's my card, 4111 1111 1111 1111, expiration 12/29.
+    must_not_match:
+      - '4111'

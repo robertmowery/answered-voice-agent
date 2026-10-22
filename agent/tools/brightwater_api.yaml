@@ -1,0 +1,245 @@
+openapi: 3.0.3
+info:
+  title: Brightwater tools API
+  version: 5.0.0
+  description: >-
+    The operations Brightwater's front desk agent may call. Each operation does
+    one bounded thing. The server URL is set at deploy time from TOOLS_API_URL.
+servers:
+  - url: https://tools-api.example.invalid
+paths:
+  /v1/hours/status:
+    get:
+      operationId: getHoursStatus
+      summary: Whether the office is open now, the next opening, and who is on call.
+      description: >-
+        Call this before telling a caller whether the office is open, before
+        offering a transfer, and before promising when the office will follow up.
+        Never work out the hours yourself.
+      responses:
+        "200":
+          description: Current status
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  open: {type: boolean}
+                  reason: {type: string, enum: [open, after_hours, weekend, holiday]}
+                  local_time: {type: string}
+                  today: {type: string}
+                  holiday: {type: string, nullable: true}
+                  next_open: {type: string, description: "When the office next opens, ready to say aloud."}
+                  on_call_name: {type: string}
+                  transfer_number: {type: string, description: "E.164 number of the on-call technician. Use it only in end_session."}
+                  emergencies:
+                    type: array
+                    items: {type: string}
+                    description: Situations the on-call technician takes after hours.
+  /v1/tickets:
+    post:
+      operationId: createTicket
+      summary: Record a callback request as a ticket the office reviews at its next opening.
+      description: >-
+        Call this once you have read the details back and the caller confirmed
+        them. The response says when the office will review it.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [caller_name, callback_number, service_address, problem, urgency]
+              properties:
+                caller_name: {type: string}
+                callback_number: {type: string, description: "10-digit US number as the caller confirmed it"}
+                service_address: {type: string, description: "Street address or ZIP code"}
+                problem: {type: string, description: "One or two sentences in the caller's words"}
+                urgency: {type: string, enum: [emergency, urgent, routine]}
+                session_id: {type: string, description: "Leave empty"}
+      responses:
+        "200":
+          description: Ticket created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ticket_id: {type: string}
+                  office_review_by: {type: string}
+                  message: {type: string}
+  /v1/prices:
+    get:
+      operationId: getPriceList
+      summary: The office's published prices, as flat fees or typical ranges.
+      description: >-
+        Call this before saying anything about cost. Quote only the "say" text
+        for the matching service and its note. If no service matches, say a
+        technician quotes after seeing the job.
+      responses:
+        "200":
+          description: Price list
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  prices:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        service_id: {type: string}
+                        service: {type: string}
+                        say: {type: string, description: "The price exactly as it may be said aloud"}
+                        note: {type: string}
+  /v1/appointments/slots:
+    get:
+      operationId: findAppointmentSlots
+      summary: The next three open arrival windows on the dispatch calendar.
+      description: >-
+        Call this when a caller wants a visit. Offer the windows by their "say"
+        text, and keep the slot_id of the one the caller picks.
+      responses:
+        "200":
+          description: Open windows
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  slots:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        slot_id: {type: string}
+                        say: {type: string}
+  /v1/appointments:
+    post:
+      operationId: bookAppointment
+      summary: Book one of the offered windows on the dispatch calendar.
+      description: >-
+        Call this after the caller picks a window and confirms their details.
+        If it fails because the window was taken, find slots again and offer another.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [slot_id, caller_name, callback_number, service_address, problem, urgency]
+              properties:
+                slot_id: {type: string, description: "The slot_id from findAppointmentSlots, exactly"}
+                caller_name: {type: string}
+                callback_number: {type: string, description: "10-digit US number as the caller confirmed it"}
+                service_address: {type: string, description: "Street address with ZIP code"}
+                problem: {type: string}
+                urgency: {type: string, enum: [emergency, urgent, routine]}
+                service_id: {type: string, description: "From getPriceList, if one matches"}
+                email: {type: string}
+                session_id: {type: string, description: "Leave empty"}
+      responses:
+        "200":
+          description: Booked
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  booking_id: {type: string}
+                  window: {type: string}
+                  message: {type: string}
+  /v1/followups:
+    post:
+      operationId: sendFollowUpEmail
+      summary: Email the booking confirmation from Brightwater's business email.
+      description: >-
+        Call this only after a booking, and only if the caller wants an email.
+        Have the caller spell the address, read it back, and get a yes first.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [booking_id, email]
+              properties:
+                booking_id: {type: string}
+                email: {type: string}
+      responses:
+        "200":
+          description: Sent or queued
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status: {type: string, enum: [sent, queued_for_review]}
+                  message: {type: string}
+  /v1/payment-links:
+    post:
+      operationId: sendPaymentLink
+      summary: Email the caller a secure link to review and pay for an order.
+      description: >-
+        Call this after the brightwater_commerce agent returns a checkout ID,
+        with the email the caller confirmed. The response gives the total to say.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [checkout_id, email]
+              properties:
+                checkout_id: {type: string, description: "The checkout ID from the commerce agent, exactly"}
+                email: {type: string}
+      responses:
+        "200":
+          description: Sent or queued
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status: {type: string, enum: [sent, queued_for_review]}
+                  total: {type: string}
+                  message: {type: string}
+  /v1/handoffs:
+    post:
+      operationId: prepareHandoff
+      summary: Prepare a warm hand-off to a queue on the call desk.
+      description: >-
+        Call this when the caller needs a person. It stores your summary for the
+        person who picks up and returns the exact end_session params to use.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [queue, intent, summary, caller_name, callback_number, zip_code]
+              properties:
+                queue: {type: string, enum: [billing, scheduling, service]}
+                intent: {type: string, description: "A few words, like 'dispute invoice'"}
+                summary: {type: string, description: "What the caller needs and what you already did. No payment details."}
+                caller_name: {type: string, description: "Ask the caller before calling this. Use 'declined' only if they won't say."}
+                callback_number: {type: string, description: "Ask the caller before calling this. Use 'declined' only if they won't say."}
+                zip_code: {type: string, description: "Five digits; picks the location. Use 'declined' only if they won't say."}
+                booking_or_ticket: {type: string}
+                session_id: {type: string, description: "Leave empty"}
+      responses:
+        "200":
+          description: Hand-off prepared
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  handoff_id: {type: string}
+                  queue: {type: string}
+                  location: {type: string}
+                  say: {type: string}
+                  end_session_params:
+                    type: object
+                    description: "Pass exactly as params to end_session"

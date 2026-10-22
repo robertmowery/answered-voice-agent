@@ -1,0 +1,52 @@
+# Brightwater Home Services (fictional): business hours, holidays and on-call
+# rules. This file is the policy. The agent never decides whether the office is
+# open; it asks the tools API, which reads this file.
+
+time_zone: America/New_York
+
+# Office hours by weekday (Monday is mon). A missing day means closed.
+hours:
+  mon: ["07:00", "18:00"]
+  tue: ["07:00", "18:00"]
+  wed: ["07:00", "18:00"]
+  thu: ["07:00", "18:00"]
+  fri: ["07:00", "18:00"]
+  sat: ["08:00", "14:00"]
+
+# Closed all day on these dates (observed holidays).
+holidays:
+  "2026-11-26": Thanksgiving
+  "2026-11-27": Day after Thanksgiving
+  "2026-12-24": Christmas Eve
+  "2026-12-25": Christmas Day
+  "2027-01-01": New Year's Day
+
+# Who carries the emergency phone. Weeks start Monday at 07:00 local time and
+# rotate through this list in order, anchored to rotation_start. Numbers are
+# placeholders from the 555-01xx range reserved for fiction; set real ones with
+# the ON_CALL_NUMBERS environment variable (name=+1E164,...), never in Git.
+on_call:
+  rotation_start: "2026-10-05"
+  technicians:
+    - name: Dana
+      phone: "+12025550101"
+    - name: Luis
+      phone: "+12025550102"
+    - name: Priya
+      phone: "+12025550103"
+
+# What counts as an emergency the on-call technician should take tonight.
+# Everything else becomes a ticket for the office's next opening.
+emergencies:
+  - no heat when it is below 40 degrees outside, or a vulnerable person in the home
+  - active water leak or burst pipe
+  - no water at all
+  - sewage backing up
+
+# Appointment windows the agent may offer. A window is bookable while fewer
+# than `technicians_per_window` jobs are on the dispatch calendar for it.
+appointments:
+  windows: ["08:00-10:00", "10:00-12:00", "13:00-15:00", "15:00-17:00"]
+  technicians_per_window: 2
+  days_ahead: 3
+  earliest_hours_from_now: 2

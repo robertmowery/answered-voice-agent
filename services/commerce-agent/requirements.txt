@@ -1,0 +1,8 @@
+# CX Agent Studio's A2A tool speaks A2A 1.0 (HTTP+JSON, message "parts").
+# Google's doc pins google-adk 1.32.0 with a2a-sdk 0.3.26, which speaks 0.3
+# ("content") and rejects every request with a 500. ADK 2.12 with a2a-sdk 1.2.2
+# speaks 1.0.
+google-adk[a2a]==2.12.0
+a2a-sdk[http-server]==1.2.2
+httpx==0.28.1
+uvicorn[standard]==0.54.0

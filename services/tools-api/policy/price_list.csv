@@ -1,0 +1,13 @@
+service_id,service,low_usd,high_usd,how_priced,note
+diagnostic,Diagnostic visit,129,129,flat,Credited toward the repair if the customer goes ahead
+furnace-repair,Furnace repair,180,950,range,Most repairs fall in this range; the technician quotes after diagnosis
+furnace-replacement,Furnace replacement,4200,8900,range,Depends on size and efficiency; in-home estimate is free
+ac-repair,Central air repair,180,1100,range,Refrigerant work is priced separately by the technician
+water-heater-tank,Tank water heater replacement,1800,3200,range,40 to 50 gallon gas or electric
+water-heater-tankless,Tankless water heater installation,3500,6500,range,Gas line and venting changes vary by home
+drain-cleaning,Drain cleaning,150,400,range,Main sewer lines are quoted on site
+leak-repair,Leak repair,150,850,range,Depends on access and pipe material
+humidifier,Whole-home humidifier installation,650,1400,range,
+uv-air-purifier,UV air purifier installation,900,1800,range,
+water-filtration,Whole-home water filtration,1500,4500,range,Water testing is free with an estimate
+maintenance-plan,Comfort maintenance plan,189,189,per_year,Two tune-ups a year and priority scheduling

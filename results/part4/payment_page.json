@@ -1,0 +1,11 @@
+{
+  "at": "2026-10-15T04:00Z",
+  "checkout_id": "chk_8e9960c60985451d",
+  "created_by": "brightwater-commerce-agent/1.0 (UCP-Agent header), from the A2A call in part4_commerce_run3_first_success.json",
+  "state_after_agent": "requires_escalation, total 7800 cents, continue_url to /pay/chk_8e9960c60985451d",
+  "payment_link_email": "queued in the Firestore outbox ('Review and pay for your Brightwater order')",
+  "buyer_page": "GET /pay/... showed 'Pay $78.00 (test mode, no charge)'",
+  "buyer_paid": "POST /pay/... returned 'Paid. Order ord_8e9960c60985451d'; GET checkout-sessions shows completed",
+  "second_complete": "POST /checkout-sessions/.../complete again returned the same order; completing twice is not paying twice",
+  "note": "Mock payment handler; no money moved."
+}

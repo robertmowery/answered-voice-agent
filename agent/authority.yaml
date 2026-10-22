@@ -1,0 +1,46 @@
+# Brightwater's written authority grants: what each actor may observe, change,
+# verify or escalate, and the limits that hold no matter what a model decides.
+# Tests compare this file to agent/app.yaml, the services' policies and the
+# Terraform IAM bindings, so a grant can't exist in code without being here.
+
+actors:
+  front-desk:
+    kind: CX Agent Studio agent
+    observe: [getHoursStatus, getPriceList, findAppointmentSlots]
+    change: [createTicket, bookAppointment, sendFollowUpEmail, sendPaymentLink]
+    escalate: [prepareHandoff, end_session, commerce-agent]
+    never:
+      - take or repeat payment card numbers
+      - transfer a call to any number the tools did not return
+      - state a price other than the price list's, or a time other than a booked window
+    blast_radius: >-
+      One caller's ticket, one booking (capacity-checked), one email from the
+      office mailbox (outbox until delegation is granted), one payment link to
+      the email on the order.
+
+  commerce-agent:
+    kind: ADK agent on Cloud Run, called over A2A
+    observe: [search_catalog]
+    change: [start_checkout]
+    escalate: []
+    never:
+      - complete a checkout or take payment
+      - set a price (the UCP server prices every line from the catalog)
+    limits:
+      max_quantity_per_item: 6
+      max_order_total_cents: 50000
+    blast_radius: One checkout in requires_escalation that a person must pay for.
+
+cloud_identities:
+  tools-api:
+    roles: [roles/pubsub.publisher, roles/datastore.user, roles/iam.serviceAccountTokenCreator]
+    workspace: [dispatch calendar (owner), price list sheet (reader), gmail.send by delegation (off by default)]
+  ticket-worker:
+    roles: [roles/datastore.user]
+    workspace: [tickets sheet (editor)]
+  ucp-server:
+    roles: [roles/datastore.user]
+  commerce-agent:
+    roles: [roles/aiplatform.user]
+  budget-shutoff:
+    roles: [roles/billing.projectManager, roles/eventarc.eventReceiver]

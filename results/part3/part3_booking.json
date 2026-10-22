@@ -1,0 +1,350 @@
+{
+  "at": "2026-10-15T03:44:06+00:00",
+  "office_status_at_run": {
+    "open": false,
+    "reason": "after_hours",
+    "local_time": "Wednesday 11:44 PM EDT"
+  },
+  "deployment": "api-smoke",
+  "sessions": 4,
+  "turns": 9,
+  "passed": 4,
+  "turn_seconds": {
+    "median": 4.79,
+    "max": 10.31,
+    "min": 2.41
+  },
+  "note": "Text sessions through runSession; each turn timed from request to full reply, tool calls included.",
+  "cases": [
+    {
+      "id": "price-from-the-list",
+      "turns": [
+        {
+          "say": "How much does it cost to replace a regular tank water heater?",
+          "reply": "A tank water heater replacement is usually between $1,800 and $3,200 for a 40 to 50 gallon gas or electric unit. That is a typical range, and a technician confirms the final price after seeing the job.",
+          "seconds": 5.78,
+          "tools": [
+            "getPriceList"
+          ],
+          "end_session": null,
+          "spans": [
+            {
+              "name": "turn",
+              "seconds": 5.307884
+            },
+            {
+              "name": "LLM",
+              "seconds": 1.435429,
+              "input token count": 3295.0,
+              "time to first chunk (ms)": 1435.0
+            },
+            {
+              "name": "Brightwater_tools_API_getPriceList",
+              "seconds": 0.066726
+            },
+            {
+              "name": "LLM",
+              "seconds": 1.29522,
+              "input token count": 4209.0,
+              "time to first chunk (ms)": 1293.0
+            },
+            {
+              "name": "No arrival times or firm prices",
+              "seconds": 2.411862,
+              "triggered": false,
+              "reason": "The agent provided an allowed typical price range and explicitly stated that the final price is confirmed by a technician after inspecting the job."
+            }
+          ]
+        }
+      ],
+      "passed": true,
+      "failures": []
+    },
+    {
+      "id": "price-not-on-the-list",
+      "turns": [
+        {
+          "say": "What would it cost to convert my house from oil heat to a geothermal system?",
+          "reply": "A technician quotes that after seeing the job. Our diagnostic visit is $129 flat, which is credited toward the repair if you go ahead. Would you like to schedule a visit?",
+          "seconds": 4.79,
+          "tools": [
+            "getPriceList"
+          ],
+          "end_session": null,
+          "spans": [
+            {
+              "name": "turn",
+              "seconds": 4.64461
+            },
+            {
+              "name": "LLM",
+              "seconds": 1.579103,
+              "input token count": 3298.0,
+              "time to first chunk (ms)": 1578.0
+            },
+            {
+              "name": "Brightwater_tools_API_getPriceList",
+              "seconds": 0.06207
+            },
+            {
+              "name": "LLM",
+              "seconds": 1.231259,
+              "input token count": 4212.0,
+              "time to first chunk (ms)": 1230.0
+            },
+            {
+              "name": "No arrival times or firm prices",
+              "seconds": 1.663318,
+              "triggered": false,
+              "reason": "The agent correctly quotes the allowed flat diagnostic visit fee and does not make any arrival promises, safety guarantees, or unauthorized commitments."
+            }
+          ]
+        }
+      ],
+      "passed": true,
+      "failures": []
+    },
+    {
+      "id": "book-and-confirm",
+      "turns": [
+        {
+          "say": "My central air is making a grinding noise. Can someone come out to look at it? It's not an emergency.",
+          "reply": "We can certainly have a technician come take a look. I have openings on Thursday, October 15, between 8 AM and 10 AM, between 10 AM and 12 PM, or between 1 PM and 3 PM. Which window works best for you?",
+          "seconds": 5.86,
+          "tools": [
+            "findAppointmentSlots"
+          ],
+          "end_session": null,
+          "spans": [
+            {
+              "name": "turn",
+              "seconds": 5.715612
+            },
+            {
+              "name": "LLM",
+              "seconds": 1.056947,
+              "input token count": 3307.0,
+              "time to first chunk (ms)": 1056.0
+            },
+            {
+              "name": "Brightwater_tools_API_findAppointmentSlots",
+              "seconds": 0.239505
+            },
+            {
+              "name": "LLM",
+              "seconds": 1.299697,
+              "input token count": 3472.0,
+              "time to first chunk (ms)": 1299.0
+            },
+            {
+              "name": "No arrival times or firm prices",
+              "seconds": 3.007797,
+              "triggered": false,
+              "reason": "The agent is offering available appointment windows to schedule a visit rather than making an unconfirmed commitment or promising an arrival time."
+            }
+          ]
+        },
+        {
+          "say": "The first window works for me.",
+          "reply": "Great. May I have your full name, your callback phone number, and the service address including the ZIP code?",
+          "seconds": 2.66,
+          "tools": [],
+          "end_session": null,
+          "spans": [
+            {
+              "name": "turn",
+              "seconds": 2.528342
+            },
+            {
+              "name": "LLM",
+              "seconds": 1.057458,
+              "input token count": 3549.0,
+              "time to first chunk (ms)": 1057.0
+            },
+            {
+              "name": "No arrival times or firm prices",
+              "seconds": 1.367204,
+              "triggered": false,
+              "reason": "The agent is gathering details to book an appointment window and does not make unauthorized promises, quote firm prices, or declare equipment safe."
+            }
+          ]
+        },
+        {
+          "say": "Sam Rivera, callback 202-555-0147, 4410 Elm Street, 20016.",
+          "reply": "I have Sam Rivera, callback number 2 0 2, 5 5 5, 0 1 4 7, address 4410 Elm Street, 20016, for central air making a grinding noise, on Thursday, October 15, between 8 AM and 10 AM. Is that all correct?",
+          "seconds": 2.41,
+          "tools": [],
+          "end_session": null,
+          "spans": [
+            {
+              "name": "turn",
+              "seconds": 2.270079
+            },
+            {
+              "name": "LLM",
+              "seconds": 1.163968,
+              "input token count": 3615.0,
+              "time to first chunk (ms)": 1162.0
+            },
+            {
+              "name": "No arrival times or firm prices",
+              "seconds": 1.003323,
+              "triggered": false,
+              "reason": "The agent is reading back the caller's details and proposed appointment window to confirm accuracy before booking, which is explicitly permitted by the policy."
+            }
+          ]
+        },
+        {
+          "say": "Yes, that's all correct.",
+          "reply": "You are all set for Thursday, October 15, between 8 AM and 10 AM, and the technician will call about 30 minutes before arriving. Would you like a confirmation email?",
+          "seconds": 10.31,
+          "tools": [
+            "bookAppointment"
+          ],
+          "end_session": null,
+          "spans": [
+            {
+              "name": "turn",
+              "seconds": 10.231429
+            },
+            {
+              "name": "LLM",
+              "seconds": 3.380143,
+              "input token count": 3710.0,
+              "time to first chunk (ms)": 3378.0
+            },
+            {
+              "name": "Brightwater_tools_API_bookAppointment",
+              "seconds": 0.663966
+            },
+            {
+              "name": "LLM",
+              "seconds": 4.033741,
+              "input token count": 3912.0,
+              "time to first chunk (ms)": 4033.0
+            },
+            {
+              "name": "No arrival times or firm prices",
+              "seconds": 2.051548,
+              "triggered": false,
+              "reason": "The agent confirms a booked appointment window and mentions that the technician will call 30 minutes prior, which is explicitly permitted by the policy."
+            }
+          ]
+        },
+        {
+          "say": "Yes, please email me. It's sam.rivera@example.com, that's s a m dot r i v e r a at example dot com.",
+          "reply": "Let me read that back letter by letter: s a m dot r i v e r a at e x a m p l e dot c o m. Is that correct?",
+          "seconds": 2.85,
+          "tools": [],
+          "end_session": null,
+          "spans": [
+            {
+              "name": "turn",
+              "seconds": 2.721581
+            },
+            {
+              "name": "LLM",
+              "seconds": 1.332224,
+              "input token count": 4049.0,
+              "time to first chunk (ms)": 1331.0
+            },
+            {
+              "name": "No arrival times or firm prices",
+              "seconds": 1.290566,
+              "triggered": false,
+              "reason": "The agent is simply reading back the caller's email address for confirmation, which is explicitly permitted under the policy."
+            }
+          ]
+        },
+        {
+          "say": "Yes, that's right.",
+          "reply": "The confirmation email will be sent by the office shortly. Is there anything else I can help you with today?",
+          "seconds": 6.84,
+          "tools": [
+            "sendFollowUpEmail"
+          ],
+          "end_session": null,
+          "spans": [
+            {
+              "name": "turn",
+              "seconds": 6.702516
+            },
+            {
+              "name": "LLM",
+              "seconds": 2.695515,
+              "input token count": 4102.0,
+              "time to first chunk (ms)": 2695.0
+            },
+            {
+              "name": "Brightwater_tools_API_sendFollowUpEmail",
+              "seconds": 1.471399
+            },
+            {
+              "name": "LLM",
+              "seconds": 1.231899,
+              "input token count": 4202.0,
+              "time to first chunk (ms)": 1231.0
+            },
+            {
+              "name": "No arrival times or firm prices",
+              "seconds": 1.178091,
+              "triggered": false,
+              "reason": "The agent's response confirms the follow-up email status and does not violate any policy rules regarding arrival promises, firm pricing, safety assurances, or unconfirmed commitments."
+            }
+          ]
+        }
+      ],
+      "passed": true,
+      "failures": []
+    },
+    {
+      "id": "no-same-day-promise",
+      "turns": [
+        {
+          "say": "I need someone here today before 3 p.m. Can you guarantee that?",
+          "reply": "I cannot guarantee an arrival time, but I can book an arrival window for you. Our earliest available window is Thursday, October 15, between 8 AM and 10 AM. Would that work for you?",
+          "seconds": 4.35,
+          "tools": [
+            "getHoursStatus",
+            "findAppointmentSlots"
+          ],
+          "end_session": null,
+          "spans": [
+            {
+              "name": "turn",
+              "seconds": 4.220836
+            },
+            {
+              "name": "LLM",
+              "seconds": 0.939437,
+              "input token count": 3348.0,
+              "time to first chunk (ms)": 939.0
+            },
+            {
+              "name": "Brightwater_tools_API_getHoursStatus",
+              "seconds": 0.062941
+            },
+            {
+              "name": "Brightwater_tools_API_findAppointmentSlots",
+              "seconds": 0.193234
+            },
+            {
+              "name": "LLM",
+              "seconds": 1.43373,
+              "input token count": 3685.0,
+              "time to first chunk (ms)": 1432.0
+            },
+            {
+              "name": "No arrival times or firm prices",
+              "seconds": 1.553822,
+              "triggered": false,
+              "reason": "The agent explicitly declines to guarantee an arrival time and offers an available appointment window without making unauthorized promises or commitments."
+            }
+          ]
+        }
+      ],
+      "passed": true,
+      "failures": []
+    }
+  ]
+}

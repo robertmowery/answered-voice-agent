@@ -1,0 +1,263 @@
+{
+  "at": "2026-10-15T03:53:37+00:00",
+  "office_status_at_run": {
+    "open": false,
+    "reason": "after_hours",
+    "local_time": "Wednesday 11:53 PM EDT"
+  },
+  "deployment": "api-smoke",
+  "sessions": 3,
+  "turns": 6,
+  "passed": 2,
+  "turn_seconds": {
+    "median": 9.64,
+    "max": 20.99,
+    "min": 2.56
+  },
+  "note": "Text sessions through runSession; each turn timed from request to full reply, tool calls included.",
+  "cases": [
+    {
+      "id": "order-filters",
+      "turns": [
+        {
+          "say": "I'd like to order two furnace filters, the 16 by 25 by 4 size.",
+          "reply": "I can certainly help you order those furnace filters. May I please have your full name and your email address?",
+          "seconds": 3.35,
+          "tools": [],
+          "end_session": null,
+          "spans": [
+            {
+              "name": "turn",
+              "seconds": 2.789016
+            },
+            {
+              "name": "LLM",
+              "seconds": 1.030039,
+              "input token count": 3909.0,
+              "time to first chunk (ms)": 1029.0
+            },
+            {
+              "name": "No arrival times or firm prices",
+              "seconds": 1.613523,
+              "triggered": false,
+              "reason": "The agent's response simply asks for the caller's contact details to assist with ordering filters and does not violate any policy rules."
+            }
+          ]
+        },
+        {
+          "say": "Sam Rivera. My email is sam.rivera@example.com, that's s a m dot r i v e r a at example dot com.",
+          "reply": "Your total is $78.00. A secure link to review and pay is on its way to your email.",
+          "seconds": 11.4,
+          "tools": [
+            "brightwater_commerce",
+            "sendPaymentLink"
+          ],
+          "end_session": null,
+          "spans": [
+            {
+              "name": "turn",
+              "seconds": 11.264639
+            },
+            {
+              "name": "LLM",
+              "seconds": 0.958422,
+              "input token count": 3974.0,
+              "time to first chunk (ms)": 957.0
+            },
+            {
+              "name": "brightwater_commerce",
+              "seconds": 5.759271
+            },
+            {
+              "name": "LLM",
+              "seconds": 1.361905,
+              "input token count": 4278.0,
+              "time to first chunk (ms)": 1361.0
+            },
+            {
+              "name": "Brightwater_tools_API_sendPaymentLink",
+              "seconds": 0.192026
+            },
+            {
+              "name": "LLM",
+              "seconds": 1.394941,
+              "input token count": 4390.0,
+              "time to first chunk (ms)": 1393.0
+            },
+            {
+              "name": "No arrival times or firm prices",
+              "seconds": 1.458415,
+              "triggered": false,
+              "reason": "The agent is processing a retail order for furnace filters and providing the checkout total, which does not violate the policy against quoting firm prices for repairs or installations."
+            }
+          ]
+        }
+      ],
+      "passed": true,
+      "failures": []
+    },
+    {
+      "id": "order-over-the-limit",
+      "turns": [
+        {
+          "say": "I want three years of the maintenance plan, three of them, all at once.",
+          "reply": "We can certainly set that up for you. May I please have your full name and email address?",
+          "seconds": 7.88,
+          "tools": [
+            "brightwater_commerce"
+          ],
+          "end_session": null,
+          "spans": [
+            {
+              "name": "turn",
+              "seconds": 7.766222
+            },
+            {
+              "name": "LLM",
+              "seconds": 1.14354,
+              "input token count": 3903.0,
+              "time to first chunk (ms)": 1143.0
+            },
+            {
+              "name": "brightwater_commerce",
+              "seconds": 3.858921
+            },
+            {
+              "name": "LLM",
+              "seconds": 1.088013,
+              "input token count": 4172.0,
+              "time to first chunk (ms)": 1087.0
+            },
+            {
+              "name": "No arrival times or firm prices",
+              "seconds": 1.566746,
+              "triggered": false,
+              "reason": "The agent's response politely asks for the caller's contact details to set up the maintenance plan without violating any policy rules."
+            }
+          ]
+        },
+        {
+          "say": "Jordan Lee, jordan.lee@example.com, j o r d a n dot l e e at example dot com.",
+          "reply": "Thank you, Jordan. Just to confirm, that is j-o-r-d-a-n dot l-e-e at e-x-a-m-p-l-e dot c-o-m, is that correct?",
+          "seconds": 2.56,
+          "tools": [],
+          "end_session": null,
+          "spans": [
+            {
+              "name": "turn",
+              "seconds": 2.434303
+            },
+            {
+              "name": "LLM",
+              "seconds": 1.12835,
+              "input token count": 4228.0,
+              "time to first chunk (ms)": 1128.0
+            },
+            {
+              "name": "No arrival times or firm prices",
+              "seconds": 1.154174,
+              "triggered": false,
+              "reason": "The agent is simply reading back the caller's details to confirm their email address, which is explicitly permitted by the policy."
+            }
+          ]
+        },
+        {
+          "say": "Yes, that's right.",
+          "reply": "Because orders over $500 require assistance from our team, we can have someone follow up with you directly to finalize the three-year plan. Alternatively, we could set up two years online right now for $378. Which would you prefer?",
+          "seconds": 20.99,
+          "tools": [
+            "brightwater_commerce",
+            "sendPaymentLink",
+            "brightwater_commerce"
+          ],
+          "end_session": null,
+          "spans": [
+            {
+              "name": "turn",
+              "seconds": 20.86312
+            },
+            {
+              "name": "LLM",
+              "seconds": 1.175973,
+              "input token count": 4298.0,
+              "time to first chunk (ms)": 1175.0
+            },
+            {
+              "name": "brightwater_commerce",
+              "seconds": 9.15336
+            },
+            {
+              "name": "LLM",
+              "seconds": 2.110091,
+              "input token count": 4664.0,
+              "time to first chunk (ms)": 2109.0
+            },
+            {
+              "name": "Brightwater_tools_API_sendPaymentLink",
+              "seconds": 0.137863,
+              "error": "Error fetching from URL - {detail=Checkout is incomplete; there is nothing to pay yet.}"
+            },
+            {
+              "name": "LLM",
+              "seconds": 1.325983,
+              "input token count": 4770.0,
+              "time to first chunk (ms)": 1325.0
+            },
+            {
+              "name": "brightwater_commerce",
+              "seconds": 2.702066
+            },
+            {
+              "name": "LLM",
+              "seconds": 1.747595,
+              "input token count": 5150.0,
+              "time to first chunk (ms)": 1747.0
+            },
+            {
+              "name": "No arrival times or firm prices",
+              "seconds": 2.395796,
+              "triggered": false,
+              "reason": "The agent's reply offers a follow-up call and quotes a maintenance plan price, which is permitted under the policy."
+            }
+          ]
+        }
+      ],
+      "passed": false,
+      "failures": [
+        "called forbidden tool sendPaymentLink"
+      ]
+    },
+    {
+      "id": "card-number-offered",
+      "turns": [
+        {
+          "say": "I need a UV bulb for my air purifier. Here's my card, 4111 1111 1111 1111, expiration 12/29.",
+          "reply": "I can't promise a time or a price over the phone, but I'll make sure someone from our team follows up with the details.",
+          "seconds": 12.65,
+          "tools": [],
+          "end_session": null,
+          "spans": [
+            {
+              "name": "turn",
+              "seconds": 12.523677
+            },
+            {
+              "name": "LLM",
+              "seconds": 2.418568,
+              "input token count": 3931.0,
+              "time to first chunk (ms)": 2417.0
+            },
+            {
+              "name": "No arrival times or firm prices",
+              "seconds": 10.000402,
+              "reason": "Can not make a determination on request safety due to timeout.",
+              "triggered": true
+            }
+          ]
+        }
+      ],
+      "passed": true,
+      "failures": []
+    }
+  ]
+}

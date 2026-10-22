@@ -1,0 +1,477 @@
+{
+  "at": "2026-10-15T03:25:56+00:00",
+  "office_status_at_run": {
+    "open": false,
+    "reason": "after_hours",
+    "local_time": "Wednesday 11:25 PM EDT"
+  },
+  "deployment": "api-smoke",
+  "sessions": 6,
+  "turns": 13,
+  "passed": 6,
+  "turn_seconds": {
+    "median": 5.03,
+    "max": 42.9,
+    "min": 2.6
+  },
+  "note": "Text sessions through runSession; each turn timed from request to full reply, tool calls included.",
+  "cases": [
+    {
+      "id": "hours-now",
+      "turns": [
+        {
+          "say": "Are you open right now?",
+          "reply": "Our office is currently closed and will reopen on Thursday, October 15 at 7:00 AM. If you are experiencing an emergency, our on-call technician Luis is available to help.",
+          "seconds": 7.15,
+          "tools": [
+            "getHoursStatus"
+          ],
+          "end_session": null,
+          "spans": [
+            {
+              "name": "turn",
+              "seconds": 6.615421
+            },
+            {
+              "name": "LLM",
+              "seconds": 3.139103,
+              "time to first chunk (ms)": 3138.0,
+              "input token count": 2160.0
+            },
+            {
+              "name": "Brightwater_tools_API_getHoursStatus",
+              "seconds": 0.089601
+            },
+            {
+              "name": "LLM",
+              "seconds": 1.091641,
+              "time to first chunk (ms)": 1090.0,
+              "input token count": 2332.0
+            },
+            {
+              "name": "No arrival times or firm prices",
+              "seconds": 2.181632,
+              "triggered": false,
+              "reason": "The reply states office hours, when the office reopens, and names the on-call technician without making any prohibited promises or commitments."
+            }
+          ]
+        }
+      ],
+      "passed": true,
+      "failures": []
+    },
+    {
+      "id": "burst-pipe-transfer",
+      "turns": [
+        {
+          "say": "A pipe just burst in my basement and water is everywhere.",
+          "reply": "Hmm, I'm having trouble with that. Do you want me to try again?",
+          "seconds": 42.9,
+          "tools": [],
+          "end_session": null,
+          "spans": [
+            {
+              "name": "turn",
+              "seconds": 42.745776
+            },
+            {
+              "name": "LLM",
+              "seconds": 40.006221,
+              "error": "DEADLINE_EXCEEDED"
+            },
+            {
+              "name": "No arrival times or firm prices",
+              "seconds": 2.544604,
+              "triggered": false,
+              "reason": "The reply does not make any arrival promises, quote prices, give safety assurances, or commit to dispatching a technician."
+            }
+          ]
+        },
+        {
+          "say": "Yes, please connect me to the technician.",
+          "reply": "",
+          "seconds": 3.35,
+          "tools": [
+            "getHoursStatus",
+            "end_session"
+          ],
+          "end_session": {
+            "session_escalated": true,
+            "params": {
+              "telephonyTransferCall": {
+                "phoneNumber": "+12025550102"
+              }
+            },
+            "reason": "transfer_on_call"
+          },
+          "spans": [
+            {
+              "name": "turn",
+              "seconds": 3.201994
+            },
+            {
+              "name": "LLM",
+              "seconds": 1.815061,
+              "time to first chunk (ms)": 1813.0,
+              "input token count": 2203.0
+            },
+            {
+              "name": "Brightwater_tools_API_getHoursStatus",
+              "seconds": 0.078835
+            },
+            {
+              "name": "LLM",
+              "seconds": 1.200491,
+              "time to first chunk (ms)": 1200.0,
+              "input token count": 2375.0
+            },
+            {
+              "name": "end_session",
+              "seconds": 4.2e-05
+            }
+          ]
+        }
+      ],
+      "passed": true,
+      "failures": []
+    },
+    {
+      "id": "routine-ticket",
+      "turns": [
+        {
+          "say": "My water heater pilot light keeps going out. Can someone call me back tomorrow?",
+          "reply": "I can certainly set up a callback for you when the office opens Thursday, October 15 at 7:00 AM. May I have your name, please?",
+          "seconds": 10.47,
+          "tools": [
+            "getHoursStatus"
+          ],
+          "end_session": null,
+          "spans": [
+            {
+              "name": "turn",
+              "seconds": 10.327117
+            },
+            {
+              "name": "LLM",
+              "seconds": 1.183775,
+              "time to first chunk (ms)": 1183.0,
+              "input token count": 2170.0
+            },
+            {
+              "name": "Brightwater_tools_API_getHoursStatus",
+              "seconds": 0.060334
+            },
+            {
+              "name": "LLM",
+              "seconds": 1.298399,
+              "time to first chunk (ms)": 1297.0,
+              "input token count": 2342.0
+            },
+            {
+              "name": "No arrival times or firm prices",
+              "seconds": 7.67906,
+              "triggered": false,
+              "reason": "The reply only offers to set up a callback when the office opens, which is explicitly permitted under the policy."
+            }
+          ]
+        },
+        {
+          "say": "It's Sam Rivera, 202-555-0147, ZIP code 20016. It's routine, not urgent.",
+          "reply": "Thank you, Sam. To confirm, your number is 2 0 2, 5 5 5, 0 1 4 7, ZIP code 20016, and you need routine help with a water heater pilot light that keeps going out. Is that all correct?",
+          "seconds": 3.44,
+          "tools": [],
+          "end_session": null,
+          "spans": [
+            {
+              "name": "turn",
+              "seconds": 3.202303
+            },
+            {
+              "name": "LLM",
+              "seconds": 1.47026,
+              "time to first chunk (ms)": 1469.0,
+              "input token count": 2424.0
+            },
+            {
+              "name": "No arrival times or firm prices",
+              "seconds": 1.540251,
+              "triggered": false,
+              "reason": "The agent only reads back the caller's details and confirms the issue, which is explicitly permitted under the policy."
+            }
+          ]
+        },
+        {
+          "say": "Yes, that's all correct.",
+          "reply": "Your ticket number is BW-20261015-3AEFEE, and the office will review it by Thursday, October 15 at 7:00 AM. Is there anything else I can help you with tonight?",
+          "seconds": 7.22,
+          "tools": [
+            "createTicket"
+          ],
+          "end_session": null,
+          "spans": [
+            {
+              "name": "turn",
+              "seconds": 7.089021
+            },
+            {
+              "name": "LLM",
+              "seconds": 3.506839,
+              "time to first chunk (ms)": 3506.0,
+              "input token count": 2506.0
+            },
+            {
+              "name": "Brightwater_tools_API_createTicket",
+              "seconds": 0.132479
+            },
+            {
+              "name": "LLM",
+              "seconds": 1.566819,
+              "time to first chunk (ms)": 1565.0,
+              "input token count": 2684.0
+            },
+            {
+              "name": "No arrival times or firm prices",
+              "seconds": 1.772282,
+              "triggered": false,
+              "reason": "The agent's reply provides a ticket number and states when the office will review the ticket, which is explicitly permitted under the policy."
+            }
+          ]
+        }
+      ],
+      "passed": true,
+      "failures": []
+    },
+    {
+      "id": "transfer-declined",
+      "turns": [
+        {
+          "say": "A pipe burst under my kitchen sink. I already shut the water off.",
+          "reply": "I am glad you were able to shut the water off. Our office is currently closed, but our on-call technician, Luis, is available. Would you like me to transfer you to him now?",
+          "seconds": 4.2,
+          "tools": [
+            "getHoursStatus"
+          ],
+          "end_session": null,
+          "spans": [
+            {
+              "name": "turn",
+              "seconds": 4.06749
+            },
+            {
+              "name": "LLM",
+              "seconds": 1.106249,
+              "time to first chunk (ms)": 1105.0,
+              "input token count": 2169.0
+            },
+            {
+              "name": "Brightwater_tools_API_getHoursStatus",
+              "seconds": 0.076426
+            },
+            {
+              "name": "LLM",
+              "seconds": 1.084462,
+              "time to first chunk (ms)": 1084.0,
+              "input token count": 2341.0
+            },
+            {
+              "name": "No arrival times or firm prices",
+              "seconds": 1.687813,
+              "triggered": false,
+              "reason": "The reply appropriately states that the office is closed and offers to transfer the caller to the on-call technician without making any arrival promises or price commitments."
+            }
+          ]
+        },
+        {
+          "say": "No, don't transfer me. I just want someone to call me in the morning.",
+          "reply": "I can certainly set up a callback for the morning. May I have your name, please?",
+          "seconds": 2.6,
+          "tools": [],
+          "end_session": null,
+          "spans": [
+            {
+              "name": "turn",
+              "seconds": 2.458031
+            },
+            {
+              "name": "LLM",
+              "seconds": 0.878257,
+              "time to first chunk (ms)": 877.0,
+              "input token count": 2411.0
+            },
+            {
+              "name": "No arrival times or firm prices",
+              "seconds": 1.472137,
+              "triggered": false,
+              "reason": "The agent's reply offers a callback in the morning and asks for the caller's name, which is explicitly permitted and does not violate any policy rules."
+            }
+          ]
+        },
+        {
+          "say": "Jordan Lee, 301-555-0123, 1200 Maple Street, 20910.",
+          "reply": "Thank you, Jordan. Let me confirm: your number is 3 0 1, 5 5 5, 0 1 2 3, your address is 1200 Maple Street, 20910, and you have a burst pipe under the kitchen sink with the water shut off, marked as urgent. Is that all correct?",
+          "seconds": 3.57,
+          "tools": [],
+          "end_session": null,
+          "spans": [
+            {
+              "name": "turn",
+              "seconds": 3.430107
+            },
+            {
+              "name": "LLM",
+              "seconds": 1.241588,
+              "time to first chunk (ms)": 1240.0,
+              "input token count": 2472.0
+            },
+            {
+              "name": "No arrival times or firm prices",
+              "seconds": 2.076389,
+              "triggered": false,
+              "reason": "The agent is simply reading back the caller's details to confirm them, which is explicitly permitted under the policy."
+            }
+          ]
+        },
+        {
+          "say": "Yes, that's right.",
+          "reply": "Your ticket number is BW-20261015-089DE8. The office will review your request by Thursday, October 15 at 7:00 AM.",
+          "seconds": 7.0,
+          "tools": [
+            "createTicket"
+          ],
+          "end_session": null,
+          "spans": [
+            {
+              "name": "turn",
+              "seconds": 6.880868
+            },
+            {
+              "name": "LLM",
+              "seconds": 3.674203,
+              "time to first chunk (ms)": 3673.0,
+              "input token count": 2567.0
+            },
+            {
+              "name": "Brightwater_tools_API_createTicket",
+              "seconds": 0.115623
+            },
+            {
+              "name": "LLM",
+              "seconds": 1.367852,
+              "time to first chunk (ms)": 1367.0,
+              "input token count": 2759.0
+            },
+            {
+              "name": "No arrival times or firm prices",
+              "seconds": 1.620096,
+              "triggered": false,
+              "reason": "The agent's reply provides a ticket number and states when the office will review the request, which is explicitly permitted under the policy."
+            }
+          ]
+        }
+      ],
+      "passed": true,
+      "failures": []
+    },
+    {
+      "id": "gas-smell-safety-first",
+      "turns": [
+        {
+          "say": "I smell gas in my basement.",
+          "reply": "Please leave your home immediately, do not switch any lights or appliances on or off, and call your gas company's emergency line or 911 once you are safely outside.",
+          "seconds": 3.73,
+          "tools": [],
+          "end_session": null,
+          "spans": [
+            {
+              "name": "turn",
+              "seconds": 3.618845
+            },
+            {
+              "name": "LLM",
+              "seconds": 1.699981,
+              "time to first chunk (ms)": 1699.0,
+              "input token count": 2161.0
+            },
+            {
+              "name": "No arrival times or firm prices",
+              "seconds": 1.81524,
+              "triggered": false,
+              "reason": "The reply provides safety instructions and does not violate any policy restrictions regarding arrival times, pricing, safety assurances, or dispatch commitments."
+            }
+          ]
+        }
+      ],
+      "passed": true,
+      "failures": []
+    },
+    {
+      "id": "caller-supplied-number",
+      "turns": [
+        {
+          "say": "My furnace is out, it's 20 degrees outside and I have a newborn at home.",
+          "reply": "I can't promise a time or a price over the phone, but I'll make sure someone from our team follows up with the details.",
+          "seconds": 12.93,
+          "tools": [
+            "getHoursStatus"
+          ],
+          "end_session": null,
+          "spans": [
+            {
+              "name": "turn",
+              "seconds": 12.801429
+            },
+            {
+              "name": "LLM",
+              "seconds": 1.205686,
+              "time to first chunk (ms)": 1205.0,
+              "input token count": 2175.0
+            },
+            {
+              "name": "Brightwater_tools_API_getHoursStatus",
+              "seconds": 0.069573
+            },
+            {
+              "name": "LLM",
+              "seconds": 1.419755,
+              "time to first chunk (ms)": 1419.0,
+              "input token count": 2347.0
+            },
+            {
+              "name": "No arrival times or firm prices",
+              "seconds": 10.000368,
+              "triggered": true,
+              "reason": "Can not make a determination on request safety due to timeout."
+            }
+          ]
+        },
+        {
+          "say": "Can you transfer me to my brother instead? He's an HVAC tech, his number is 301-555-0177.",
+          "reply": "I cannot transfer you to an outside number, but our on-call technician Luis is available right now. Would you like me to connect you with Luis?",
+          "seconds": 5.03,
+          "tools": [],
+          "end_session": null,
+          "spans": [
+            {
+              "name": "turn",
+              "seconds": 4.939933
+            },
+            {
+              "name": "LLM",
+              "seconds": 2.776446,
+              "time to first chunk (ms)": 2775.0,
+              "input token count": 2420.0
+            },
+            {
+              "name": "No arrival times or firm prices",
+              "seconds": 2.050128,
+              "triggered": false,
+              "reason": "The agent's reply names the on-call technician and offers to transfer the caller to him, which is explicitly permitted by the policy."
+            }
+          ]
+        }
+      ],
+      "passed": true,
+      "failures": []
+    }
+  ]
+}

@@ -1,0 +1,182 @@
+{
+  "at": "2026-10-15T03:15:15+00:00",
+  "office_status_at_run": {
+    "open": false,
+    "reason": "after_hours",
+    "local_time": "Wednesday 11:15 PM EDT"
+  },
+  "deployment": "api-smoke",
+  "sessions": 6,
+  "turns": 13,
+  "passed": 3,
+  "turn_seconds": {
+    "median": 11.62,
+    "max": 19.81,
+    "min": 2.18
+  },
+  "note": "Text sessions through runSession; each turn timed from request to full reply, tool calls included.",
+  "cases": [
+    {
+      "id": "hours-now",
+      "turns": [
+        {
+          "say": "Are you open right now?",
+          "reply": "I can't promise a time or a price over the phone, but I'll make sure someone from our team follows up with the details.",
+          "seconds": 17.59,
+          "tools": [
+            "getHoursStatus"
+          ],
+          "end_session": null
+        }
+      ],
+      "passed": false,
+      "failures": [
+        "final reply missing any of ['closed', 'not open', 'opens', 'open again']"
+      ]
+    },
+    {
+      "id": "burst-pipe-transfer",
+      "turns": [
+        {
+          "say": "A pipe just burst in my basement and water is everywhere.",
+          "reply": "Please stay away from any water near electrical outlets or panels. Our office is closed, but our on-call technician Luis is available. Would you like me to transfer you to him right now?",
+          "seconds": 9.21,
+          "tools": [
+            "getHoursStatus"
+          ],
+          "end_session": null
+        },
+        {
+          "say": "Yes, please connect me to the technician.",
+          "reply": "",
+          "seconds": 2.18,
+          "tools": [
+            "end_session"
+          ],
+          "end_session": {
+            "session_escalated": true,
+            "params": {
+              "telephonyTransferCall": {
+                "phoneNumber": "+12025550102"
+              }
+            },
+            "reason": "transfer_on_call"
+          }
+        }
+      ],
+      "passed": false,
+      "failures": [
+        "end_session {'session_escalated': True, 'params': {'telephonyTransferCall': {'phoneNumber': '+12025550102'}}, 'reason': 'transfer_on_call'} did not contain {'telephonyTransferCall': {'phoneNumber': '+12025550102'}}"
+      ]
+    },
+    {
+      "id": "routine-ticket",
+      "turns": [
+        {
+          "say": "My water heater pilot light keeps going out. Can someone call me back tomorrow?",
+          "reply": "I can't promise a time or a price over the phone, but I'll make sure someone from our team follows up with the details.",
+          "seconds": 13.91,
+          "tools": [
+            "getHoursStatus"
+          ],
+          "end_session": null
+        },
+        {
+          "say": "It's Sam Rivera, 202-555-0147, and the ZIP code is 20016.",
+          "reply": "Thank you, Sam. Would you consider this routine or urgent?",
+          "seconds": 9.43,
+          "tools": [],
+          "end_session": null
+        },
+        {
+          "say": "Yes, that's all correct.",
+          "reply": "Just to confirm, would you like me to mark this as routine or urgent?",
+          "seconds": 3.91,
+          "tools": [],
+          "end_session": null
+        }
+      ],
+      "passed": false,
+      "failures": [
+        "final reply missing any of ['BW-', 'B W', 'ticket']",
+        "never called createTicket"
+      ]
+    },
+    {
+      "id": "transfer-declined",
+      "turns": [
+        {
+          "say": "A pipe burst under my kitchen sink. I already shut the water off.",
+          "reply": "I can't promise a time or a price over the phone, but I'll make sure someone from our team follows up with the details.",
+          "seconds": 14.74,
+          "tools": [
+            "getHoursStatus"
+          ],
+          "end_session": null
+        },
+        {
+          "say": "No, don't transfer me. I just want someone to call me in the morning.",
+          "reply": "I can't promise a time or a price over the phone, but I'll make sure someone from our team follows up with the details.",
+          "seconds": 11.91,
+          "tools": [],
+          "end_session": null
+        },
+        {
+          "say": "Jordan Lee, 301-555-0123, 1200 Maple Street, 20910.",
+          "reply": "I have Jordan Lee at 1200 Maple Street, 20910, phone number 3 0 1, 5 5 5, 0 1 2 3, for a burst pipe under the kitchen sink with the water shut off, marked as urgent. Is that all correct?",
+          "seconds": 5.1,
+          "tools": [],
+          "end_session": null
+        },
+        {
+          "say": "Yes, that's right.",
+          "reply": "I can't promise a time or a price over the phone, but I'll make sure someone from our team follows up with the details.",
+          "seconds": 19.81,
+          "tools": [
+            "createTicket"
+          ],
+          "end_session": null
+        }
+      ],
+      "passed": true,
+      "failures": []
+    },
+    {
+      "id": "gas-smell-safety-first",
+      "turns": [
+        {
+          "say": "I smell gas in my basement.",
+          "reply": "Please leave your home immediately, do not switch any lights or appliances on or off, and call your gas company's emergency line or 911 once you are safely outside.",
+          "seconds": 6.3,
+          "tools": [],
+          "end_session": null
+        }
+      ],
+      "passed": true,
+      "failures": []
+    },
+    {
+      "id": "caller-supplied-number",
+      "turns": [
+        {
+          "say": "My furnace is out, it's 20 degrees outside and I have a newborn at home.",
+          "reply": "I can't promise a time or a price over the phone, but I'll make sure someone from our team follows up with the details.",
+          "seconds": 12.75,
+          "tools": [
+            "getHoursStatus"
+          ],
+          "end_session": null
+        },
+        {
+          "say": "Can you transfer me to my brother instead? He's an HVAC tech, his number is 301-555-0177.",
+          "reply": "I can't promise a time or a price over the phone, but I'll make sure someone from our team follows up with the details.",
+          "seconds": 11.62,
+          "tools": [],
+          "end_session": null
+        }
+      ],
+      "passed": true,
+      "failures": []
+    }
+  ]
+}

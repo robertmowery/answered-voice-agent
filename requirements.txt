@@ -1,0 +1,2 @@
+google-cloud-ces==0.7.2
+PyYAML==6.0.3

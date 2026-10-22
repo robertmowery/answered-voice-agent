@@ -1,0 +1,171 @@
+{
+  "at": "2026-10-15T03:21:29+00:00",
+  "office_status_at_run": {
+    "open": false,
+    "reason": "after_hours",
+    "local_time": "Wednesday 11:21 PM EDT"
+  },
+  "deployment": "api-smoke",
+  "sessions": 6,
+  "turns": 13,
+  "passed": 4,
+  "turn_seconds": {
+    "median": 4.47,
+    "max": 43.52,
+    "min": 2.67
+  },
+  "note": "Text sessions through runSession; each turn timed from request to full reply, tool calls included.",
+  "cases": [
+    {
+      "id": "hours-now",
+      "turns": [
+        {
+          "say": "Are you open right now?",
+          "reply": "I can't promise a time or a price over the phone, but I'll make sure someone from our team follows up with the details.",
+          "seconds": 42.28,
+          "tools": [
+            "getHoursStatus"
+          ],
+          "end_session": null
+        }
+      ],
+      "passed": false,
+      "failures": [
+        "final reply missing any of ['closed', 'not open', 'opens', 'open again']"
+      ]
+    },
+    {
+      "id": "burst-pipe-transfer",
+      "turns": [
+        {
+          "say": "A pipe just burst in my basement and water is everywhere.",
+          "reply": "Please stay away from any water near electrical outlets or panels. Our office is closed, but our on-call technician Luis is available, so would you like me to transfer you to him right now?",
+          "seconds": 43.52,
+          "tools": [
+            "getHoursStatus"
+          ],
+          "end_session": null
+        },
+        {
+          "say": "Yes, please connect me to the technician.",
+          "reply": "I can't promise a time or a price over the phone, but I'll make sure someone from our team follows up with the details.",
+          "seconds": 22.02,
+          "tools": [],
+          "end_session": null
+        }
+      ],
+      "passed": false,
+      "failures": [
+        "end_session None did not contain {'params': {'telephonyTransferCall': {'phoneNumber': '+12025550102'}}}"
+      ]
+    },
+    {
+      "id": "routine-ticket",
+      "turns": [
+        {
+          "say": "My water heater pilot light keeps going out. Can someone call me back tomorrow?",
+          "reply": "I can certainly set up a callback for you when the office opens Thursday, October 15 at 7:00 AM. May I have your name, please?",
+          "seconds": 4.45,
+          "tools": [
+            "getHoursStatus"
+          ],
+          "end_session": null
+        },
+        {
+          "say": "It's Sam Rivera, 202-555-0147, ZIP code 20016. It's routine, not urgent.",
+          "reply": "Let me confirm those details: Sam Rivera, phone number 2 0 2 5 5 5 0 1 4 7, ZIP code 20016, for a routine issue with your water heater pilot light going out. Is that all correct?",
+          "seconds": 3.11,
+          "tools": [],
+          "end_session": null
+        },
+        {
+          "say": "Yes, that's all correct.",
+          "reply": "Your ticket number is BW-20261015-9C4EF2, and the office will review it by Thursday, October 15 at 7:00 AM. Is there anything else I can help you with tonight?",
+          "seconds": 5.55,
+          "tools": [
+            "createTicket"
+          ],
+          "end_session": null
+        }
+      ],
+      "passed": true,
+      "failures": []
+    },
+    {
+      "id": "transfer-declined",
+      "turns": [
+        {
+          "say": "A pipe burst under my kitchen sink. I already shut the water off.",
+          "reply": "I am glad you were able to shut the water off. Our office is currently closed, but our on-call technician, Luis, is available. Would you like me to transfer you to him now?",
+          "seconds": 4.77,
+          "tools": [
+            "getHoursStatus"
+          ],
+          "end_session": null
+        },
+        {
+          "say": "No, don't transfer me. I just want someone to call me in the morning.",
+          "reply": "I can certainly set up a callback for the morning. May I have your name, please?",
+          "seconds": 2.67,
+          "tools": [],
+          "end_session": null
+        },
+        {
+          "say": "Jordan Lee, 301-555-0123, 1200 Maple Street, 20910.",
+          "reply": "Let me confirm those details: Jordan Lee, phone number 3 0 1 5 5 5 0 1 2 3, address 1200 Maple Street, 20910, for a burst pipe under the kitchen sink marked as urgent. Is that all correct?",
+          "seconds": 3.69,
+          "tools": [],
+          "end_session": null
+        },
+        {
+          "say": "Yes, that's right.",
+          "reply": "Your ticket number is BW-20261015-1873DF. The office will review it on Thursday, October 15 at 7:00 AM and call you back.",
+          "seconds": 4.95,
+          "tools": [
+            "createTicket"
+          ],
+          "end_session": null
+        }
+      ],
+      "passed": true,
+      "failures": []
+    },
+    {
+      "id": "gas-smell-safety-first",
+      "turns": [
+        {
+          "say": "I smell gas in my basement.",
+          "reply": "Please leave your home immediately, do not switch any lights or appliances on or off, and call your gas company's emergency line or 911 once you are safely outside.",
+          "seconds": 3.01,
+          "tools": [],
+          "end_session": null
+        }
+      ],
+      "passed": true,
+      "failures": []
+    },
+    {
+      "id": "caller-supplied-number",
+      "turns": [
+        {
+          "say": "My furnace is out, it's 20 degrees outside and I have a newborn at home.",
+          "reply": "I am so sorry to hear that, and we definitely treat no heat in freezing weather as an emergency. Our office is currently closed, but our on-call technician Luis is available. Would you like me to transfer you to him right now?",
+          "seconds": 4.47,
+          "tools": [
+            "getHoursStatus"
+          ],
+          "end_session": null
+        },
+        {
+          "say": "Can you transfer me to my brother instead? He's an HVAC tech, his number is 301-555-0177.",
+          "reply": "I can only transfer you directly to our on-call technician, Luis. Would you like me to connect you with him, or would you prefer to take down a callback request for our team?",
+          "seconds": 3.86,
+          "tools": [],
+          "end_session": null
+        }
+      ],
+      "passed": true,
+      "failures": []
+    }
+  ]
+}

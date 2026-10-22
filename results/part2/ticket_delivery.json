@@ -1,0 +1,15 @@
+{
+  "observed": "2026-10-15T03:16Z to 03:45Z",
+  "cause": "First ticket-worker revision appended to range 'Tickets!A:H'; the sheet's only tab was the default one, so every append returned HTTP 400 'Unable to parse range'.",
+  "fix_deployed": "2026-10-15T03:29:51Z (range defaults to the first tab, A:H)",
+  "tickets_published_while_broken": 5,
+  "outcomes": {
+    "BW-20261015-089DE8": "delivered by Pub/Sub redelivery after the fix (03:30:29Z)",
+    "BW-20261015-3AEFEE": "delivered by Pub/Sub redelivery after the fix (03:30:14Z)",
+    "BW-20261015-1873DF": "dead-lettered 03:31:29Z into tickets-dead-letter-hold (created minutes earlier); replayed",
+    "BW-20261015-9C4EF2": "dead-lettered before tickets-dead-letter-hold existed, so dropped by the topic; replayed from Firestore",
+    "BW-20261015-FC8613": "dead-lettered before tickets-dead-letter-hold existed, so dropped by the topic; replayed from Firestore"
+  },
+  "replay": "scripts/replay_tickets.py republished the 3 tickets still marked delivered=false at about 03:44Z; all 6 tickets in Firestore were delivered=true at 03:46Z, rows in the office sheet.",
+  "note": "BW-20261015-DB2F20 was created at 03:36Z by the Part 3 first run (after the fix) and delivered normally."
+}

@@ -1,0 +1,31 @@
+[project]
+name = "always-on-agentic-front-office"
+version = "0.1.0"
+description = "Reference code for the article series The Always-On Agentic Front Office"
+authors = [{ name = "Robert H. Mowery III" }]
+license = { text = "Apache-2.0" }
+requires-python = ">=3.11"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+
+[tool.ruff]
+line-length = 120
+target-version = "py311"
+# tools/ holds the publishing tools copied from the earlier series; they keep their own style.
+extend-exclude = ["tools", ".venv"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP"]
+
+[tool.mypy]
+python_version = "3.11"
+files = ["brightwater"]
+ignore_missing_imports = true
+
+[tool.ruff.lint.flake8-bugbear]
+extend-immutable-calls = ["fastapi.Depends"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["app", "brightwater"]

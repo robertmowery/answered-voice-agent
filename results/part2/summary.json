@@ -1,0 +1,67 @@
+[
+  {
+    "file": "part2_routing.json",
+    "at": "2026-10-15T03:25:56+00:00",
+    "sessions": 6,
+    "passed": 6,
+    "turns": 13,
+    "fallback_replies": 1,
+    "guardrail_triggered_spans": 1,
+    "guardrail_timeouts": 1,
+    "model_deadline_exceeded": 1,
+    "median_turn_seconds": 5.03,
+    "median_tool_turn_seconds": 7.15,
+    "median_plain_turn_seconds": 3.65,
+    "max_turn_seconds": 42.9,
+    "median_span_seconds": {
+      "turn": 4.94,
+      "LLM": 1.39,
+      "Brightwater_tools_API_getHoursStatus": 0.08,
+      "No arrival times or firm prices": 1.93,
+      "end_session": 0.0,
+      "Brightwater_tools_API_createTicket": 0.12
+    },
+    "span_counts": {
+      "turn": 13,
+      "LLM": 20,
+      "Brightwater_tools_API_getHoursStatus": 5,
+      "No arrival times or firm prices": 12,
+      "end_session": 1,
+      "Brightwater_tools_API_createTicket": 2
+    }
+  },
+  {
+    "file": "part2_routing_run1_part1_guardrail.json",
+    "at": "2026-10-15T03:15:15+00:00",
+    "sessions": 6,
+    "passed": 3,
+    "turns": 13,
+    "fallback_replies": 7,
+    "guardrail_triggered_spans": 0,
+    "guardrail_timeouts": 0,
+    "model_deadline_exceeded": 0,
+    "median_turn_seconds": 11.62,
+    "median_tool_turn_seconds": 13.91,
+    "median_plain_turn_seconds": 7.87,
+    "max_turn_seconds": 19.81,
+    "median_span_seconds": {},
+    "span_counts": {}
+  },
+  {
+    "file": "part2_routing_run2.json",
+    "at": "2026-10-15T03:21:29+00:00",
+    "sessions": 6,
+    "passed": 4,
+    "turns": 13,
+    "fallback_replies": 2,
+    "guardrail_triggered_spans": 0,
+    "guardrail_timeouts": 0,
+    "model_deadline_exceeded": 0,
+    "median_turn_seconds": 4.47,
+    "median_tool_turn_seconds": 4.95,
+    "median_plain_turn_seconds": 3.4,
+    "max_turn_seconds": 43.52,
+    "median_span_seconds": {},
+    "span_counts": {}
+  }
+]

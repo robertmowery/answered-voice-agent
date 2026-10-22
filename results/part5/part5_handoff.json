@@ -1,0 +1,328 @@
+{
+  "at": "2026-10-15T11:10:54+00:00",
+  "office_status_at_run": {
+    "open": true,
+    "reason": "open",
+    "local_time": "Thursday 7:10 AM EDT"
+  },
+  "deployment": "api-smoke",
+  "sessions": 3,
+  "turns": 6,
+  "passed": 3,
+  "turn_seconds": {
+    "median": 21.23,
+    "max": 80.64,
+    "min": 0.23
+  },
+  "note": "Text sessions through runSession; each turn timed from request to full reply, tool calls included.",
+  "cases": [
+    {
+      "id": "billing-dispute",
+      "turns": [
+        {
+          "say": "I was charged twice for the visit on October 3rd. Invoice 4471. I want to talk to someone about a refund.",
+          "reply": "I can't promise a time or a price over the phone, but I'll make sure someone from our team follows up with the details.",
+          "seconds": 80.64,
+          "tools": [
+            "getHoursStatus"
+          ],
+          "end_session": null,
+          "spans": [
+            {
+              "name": "turn",
+              "seconds": 80.117289
+            },
+            {
+              "name": "Prompt guard",
+              "seconds": 0.420651,
+              "reason": "The user input is a legitimate business inquiry regarding a billing dispute and a request for a refund, which falls under safe financial and business tasks.",
+              "triggered": false
+            },
+            {
+              "name": "LLM",
+              "seconds": 29.850533,
+              "time to first chunk (ms)": 29850.0,
+              "input token count": 4684.0
+            },
+            {
+              "name": "Brightwater_tools_API_getHoursStatus",
+              "seconds": 0.155725
+            },
+            {
+              "name": "LLM",
+              "seconds": 40.003038,
+              "error": "DEADLINE_EXCEEDED"
+            },
+            {
+              "name": "No arrival times or firm prices",
+              "seconds": 10.00045,
+              "reason": "Can not make a determination on request safety due to timeout.",
+              "triggered": true
+            }
+          ]
+        },
+        {
+          "say": "Maria Lopez, 410-555-0188, ZIP 21201.",
+          "reply": "",
+          "seconds": 34.32,
+          "tools": [
+            "prepareHandoff",
+            "end_session"
+          ],
+          "end_session": {
+            "session_escalated": true,
+            "reason": "handoff",
+            "params": {
+              "telephonyTransferCall": {
+                "phoneNumber": "+12025550111"
+              },
+              "liveAgentHandoff": {
+                "sipRefer": true,
+                "xHeaders": {
+                  "intent": "refund-double-charge",
+                  "handoff-id": "HO-7E138D345C",
+                  "queue": "billing",
+                  "location": "brightwater-east"
+                }
+              }
+            }
+          },
+          "spans": [
+            {
+              "name": "turn",
+              "seconds": 34.165158
+            },
+            {
+              "name": "Prompt guard",
+              "seconds": 0.393657,
+              "reason": "The input contains standard business or personal information (name, phone number, ZIP code) without any malicious instructions, prompt injections, or code execution requests.",
+              "triggered": false
+            },
+            {
+              "name": "LLM",
+              "seconds": 28.432465,
+              "time to first chunk (ms)": 28432.0,
+              "input token count": 4918.0
+            },
+            {
+              "name": "Brightwater_tools_API_prepareHandoff",
+              "seconds": 1.800877
+            },
+            {
+              "name": "LLM",
+              "seconds": 3.818977,
+              "time to first chunk (ms)": 3818.0,
+              "input token count": 5208.0
+            },
+            {
+              "name": "end_session",
+              "seconds": 7.3e-05
+            }
+          ]
+        }
+      ],
+      "passed": true,
+      "failures": []
+    },
+    {
+      "id": "frustrated-caller",
+      "turns": [
+        {
+          "say": "This is the third time I've called about the noise from the furnace you installed. I'm done talking to a machine. Get me a person.",
+          "reply": "I can't promise a time or a price over the phone, but I'll make sure someone from our team follows up with the details.",
+          "seconds": 33.38,
+          "tools": [
+            "getHoursStatus"
+          ],
+          "end_session": null,
+          "spans": [
+            {
+              "name": "turn",
+              "seconds": 33.250248
+            },
+            {
+              "name": "Prompt guard",
+              "seconds": 0.301285,
+              "reason": "The user is expressing frustration and requesting to speak with a human, which is a common customer service interaction and does not fall under any of the malicious categories.",
+              "triggered": false
+            },
+            {
+              "name": "LLM",
+              "seconds": 12.511317,
+              "time to first chunk (ms)": 12510.0,
+              "input token count": 4686.0
+            },
+            {
+              "name": "Brightwater_tools_API_getHoursStatus",
+              "seconds": 0.058384
+            },
+            {
+              "name": "LLM",
+              "seconds": 10.569331,
+              "time to first chunk (ms)": 10567.0,
+              "input token count": 4855.0
+            },
+            {
+              "name": "No arrival times or firm prices",
+              "seconds": 10.000431,
+              "reason": "Can not make a determination on request safety due to timeout.",
+              "triggered": true
+            }
+          ]
+        },
+        {
+          "say": "Dave Kim, 202-555-0155, 20016. The install was in August.",
+          "reply": "",
+          "seconds": 6.69,
+          "tools": [
+            "prepareHandoff",
+            "end_session"
+          ],
+          "end_session": {
+            "session_escalated": true,
+            "reason": "handoff",
+            "params": {
+              "telephonyTransferCall": {
+                "phoneNumber": "+12025550113"
+              },
+              "liveAgentHandoff": {
+                "sipRefer": true,
+                "xHeaders": "{handoff-id: \"HO-DAC553C22A\", intent: \"furnace-noise-complaint\", location: \"brightwater-central\", queue: \"service\"}"
+              }
+            }
+          },
+          "spans": [
+            {
+              "name": "turn",
+              "seconds": 6.549942
+            },
+            {
+              "name": "Prompt guard",
+              "seconds": 0.317965,
+              "reason": "The user is providing personal information and context about an installation, which does not fall under any of the malicious categories.",
+              "triggered": false
+            },
+            {
+              "name": "LLM",
+              "seconds": 2.064197,
+              "time to first chunk (ms)": 2063.0,
+              "input token count": 4925.0
+            },
+            {
+              "name": "Brightwater_tools_API_prepareHandoff",
+              "seconds": 0.162208
+            },
+            {
+              "name": "LLM",
+              "seconds": 4.209066,
+              "time to first chunk (ms)": 4208.0,
+              "input token count": 5189.0
+            },
+            {
+              "name": "end_session",
+              "seconds": 5.4e-05
+            }
+          ]
+        }
+      ],
+      "passed": true,
+      "failures": []
+    },
+    {
+      "id": "card-number-not-forwarded",
+      "turns": [
+        {
+          "say": "I want to pay my outstanding invoice. My card is 4111 1111 1111 1111. Can you put me through to billing?",
+          "reply": "For your security, please don't share card numbers over the phone. Our team handles billing directly, and I can send you a secure link instead.",
+          "seconds": 0.23,
+          "tools": [],
+          "end_session": null,
+          "spans": [
+            {
+              "name": "turn",
+              "seconds": 0.098294
+            },
+            {
+              "name": "No card numbers, either direction",
+              "seconds": 0.000338,
+              "reason": "User input matched one of: [\\b(?:\\d[ -]?){13,19}\\b]",
+              "triggered": true
+            }
+          ]
+        },
+        {
+          "say": "Ana Ruiz, 301-555-0166, 20910.",
+          "reply": "",
+          "seconds": 9.07,
+          "tools": [
+            "getHoursStatus",
+            "prepareHandoff",
+            "end_session"
+          ],
+          "end_session": {
+            "session_escalated": true,
+            "reason": "handoff",
+            "params": {
+              "telephonyTransferCall": {
+                "phoneNumber": "+12025550111"
+              },
+              "liveAgentHandoff": {
+                "sipRefer": true,
+                "xHeaders": {
+                  "handoff-id": "HO-589A122958",
+                  "intent": "pay-invoice",
+                  "queue": "billing",
+                  "location": "brightwater-north"
+                }
+              }
+            }
+          },
+          "spans": [
+            {
+              "name": "turn",
+              "seconds": 8.935813
+            },
+            {
+              "name": "Prompt guard",
+              "seconds": 0.3894,
+              "reason": "The input contains personal information but does not attempt to access internal data, inject prompts, impersonate, generate code, manipulate responses, threaten, or coerce the AI. It appears to be a simple data entry or retrieval request.",
+              "triggered": false
+            },
+            {
+              "name": "LLM",
+              "seconds": 1.693312,
+              "time to first chunk (ms)": 1693.0,
+              "input token count": 4759.0
+            },
+            {
+              "name": "Brightwater_tools_API_getHoursStatus",
+              "seconds": 0.058951
+            },
+            {
+              "name": "LLM",
+              "seconds": 4.755463,
+              "time to first chunk (ms)": 4755.0,
+              "input token count": 4928.0
+            },
+            {
+              "name": "Brightwater_tools_API_prepareHandoff",
+              "seconds": 0.260519
+            },
+            {
+              "name": "LLM",
+              "seconds": 2.05882,
+              "time to first chunk (ms)": 2057.0,
+              "input token count": 5199.0
+            },
+            {
+              "name": "end_session",
+              "seconds": 3.9e-05
+            }
+          ]
+        }
+      ],
+      "passed": true,
+      "failures": []
+    }
+  ]
+}

@@ -1,0 +1,38 @@
+# Part 3: prices from the office's sheet, bookings into the dispatch calendar,
+# and the follow-up email. Each case is one session.
+
+cases:
+  - id: price-from-the-list
+    turns:
+      - How much does it cost to replace a regular tank water heater?
+    expect_tools: [getPriceList]
+    must_include_any:
+      - ["1,800", "1800", "eighteen hundred"]
+      - ["3,200", "3200", "thirty-two hundred"]
+
+  - id: price-not-on-the-list
+    turns:
+      - What would it cost to convert my house from oil heat to a geothermal system?
+    expect_tools: [getPriceList]
+    must_include_any:
+      - ["technician", "estimate", "on site", "in person", "see"]
+    must_not_match:
+      - '\$\s?[2-9],?\d{3}'
+
+  - id: book-and-confirm
+    turns:
+      - My central air is making a grinding noise. Can someone come out to look at it? It's not an emergency.
+      - The first window works for me.
+      - Sam Rivera, callback 202-555-0147, 4410 Elm Street, 20016.
+      - Yes, that's all correct.
+      - Yes, please email me. It's sam.rivera@example.com, that's s a m dot r i v e r a at example dot com.
+      - Yes, that's right.
+    expect_tools: [findAppointmentSlots, bookAppointment, sendFollowUpEmail]
+    forbid_end_session: true
+
+  - id: no-same-day-promise
+    turns:
+      - I need someone here today before 3 p.m. Can you guarantee that?
+    must_not_match:
+      - '\bguarantee(d)? (that|someone|a technician)\b'
+      - '\b(will|can) be there (today|by)\b'

@@ -1,0 +1,9 @@
+{
+  "at": "2026-10-13T18:34:05Z",
+  "test": "Published a budget alert below the cap to the budget-alerts topic",
+  "alert": {"costAmount": 1.25, "budgetAmount": 40.0},
+  "function_log": "INFO Budget alert received cost=1.25 budget=40",
+  "billing_enabled_after": true,
+  "first_deliveries": "Two deliveries at 18:27 returned 403 while the new run.invoker binding propagated; Pub/Sub retried and the third returned 200.",
+  "not_tested": "The shutoff path itself (unlinking billing) was not triggered, because it would stop the project."
+}

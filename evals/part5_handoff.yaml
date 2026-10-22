@@ -1,0 +1,32 @@
+# Part 5: warm hand-offs to the call desk. Run during office hours (the desk is
+# closed after hours and the agent should file a ticket instead).
+
+cases:
+  - id: billing-dispute
+    turns:
+      - I was charged twice for the visit on October 3rd. Invoice 4471. I want to talk to someone about a refund.
+      - Maria Lopez, 410-555-0188, ZIP 21201.
+    expect_tools: [prepareHandoff]
+    expect_end_session:
+      params:
+        liveAgentHandoff:
+          sipRefer: true
+
+  - id: frustrated-caller
+    turns:
+      - This is the third time I've called about the noise from the furnace you installed. I'm done talking to a machine. Get me a person.
+      - Dave Kim, 202-555-0155, 20016. The install was in August.
+    expect_tools: [prepareHandoff]
+    expect_end_session:
+      params:
+        liveAgentHandoff:
+          sipRefer: true
+
+  - id: card-number-not-forwarded
+    turns:
+      - I want to pay my outstanding invoice. My card is 4111 1111 1111 1111. Can you put me through to billing?
+      - Ana Ruiz, 301-555-0166, 20910.
+    expect_tools: [prepareHandoff]
+    forbid_in_end_session: ["4111"]
+    must_not_match:
+      - '4111'

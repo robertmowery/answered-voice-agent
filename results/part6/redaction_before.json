@@ -1,0 +1,200 @@
+{
+  "checked_at": "2026-10-15T04:00:18+00:00",
+  "conversations": 32,
+  "with_card_number": 2,
+  "with_redaction_marker": 0,
+  "rows": [
+    {
+      "conversation": "eval-card-number-offered-63dcfd57",
+      "start": "2026-10-15 03:54:28.929874+00:00",
+      "card_number_present": true,
+      "redaction_marker_present": false
+    },
+    {
+      "conversation": "eval-order-over-the-limit-e09b87c4",
+      "start": "2026-10-15 03:53:54.459339+00:00",
+      "card_number_present": false,
+      "redaction_marker_present": false
+    },
+    {
+      "conversation": "eval-order-filters-d49876ec",
+      "start": "2026-10-15 03:53:38.138180+00:00",
+      "card_number_present": false,
+      "redaction_marker_present": false
+    },
+    {
+      "conversation": "eval-order-filters-9014cc32",
+      "start": "2026-10-15 03:52:28.291313+00:00",
+      "card_number_present": false,
+      "redaction_marker_present": false
+    },
+    {
+      "conversation": "eval-order-filters-bab8ba79",
+      "start": "2026-10-15 03:48:55.569509+00:00",
+      "card_number_present": false,
+      "redaction_marker_present": false
+    },
+    {
+      "conversation": "eval-card-number-offered-a2c1bb4b",
+      "start": "None",
+      "card_number_present": false,
+      "redaction_marker_present": false
+    },
+    {
+      "conversation": "eval-order-over-the-limit-294ecb8b",
+      "start": "2026-10-15 03:47:50.405025+00:00",
+      "card_number_present": false,
+      "redaction_marker_present": false
+    },
+    {
+      "conversation": "eval-order-filters-43fac685",
+      "start": "2026-10-15 03:47:29.171118+00:00",
+      "card_number_present": false,
+      "redaction_marker_present": false
+    },
+    {
+      "conversation": "probe-a43b525d",
+      "start": "2026-10-15 03:46:45.736426+00:00",
+      "card_number_present": false,
+      "redaction_marker_present": false
+    },
+    {
+      "conversation": "eval-no-same-day-promise-6e159162",
+      "start": "2026-10-15 03:44:55.929300+00:00",
+      "card_number_present": false,
+      "redaction_marker_present": false
+    },
+    {
+      "conversation": "eval-book-and-confirm-9582c05f",
+      "start": "2026-10-15 03:44:18.944382+00:00",
+      "card_number_present": false,
+      "redaction_marker_present": false
+    },
+    {
+      "conversation": "eval-price-not-on-the-list-f6cc0cbf",
+      "start": "2026-10-15 03:44:13.136913+00:00",
+      "card_number_present": false,
+      "redaction_marker_present": false
+    },
+    {
+      "conversation": "eval-price-from-the-list-f9a494dc",
+      "start": "2026-10-15 03:44:06.678914+00:00",
+      "card_number_present": false,
+      "redaction_marker_present": false
+    },
+    {
+      "conversation": "eval-price-from-the-list-1a613aa3",
+      "start": "2026-10-15 03:43:38.321330+00:00",
+      "card_number_present": false,
+      "redaction_marker_present": false
+    },
+    {
+      "conversation": "eval-no-same-day-promise-2c07bd30",
+      "start": "2026-10-15 03:37:23.235856+00:00",
+      "card_number_present": false,
+      "redaction_marker_present": false
+    },
+    {
+      "conversation": "eval-book-and-confirm-573081bd",
+      "start": "2026-10-15 03:35:32.886852+00:00",
+      "card_number_present": false,
+      "redaction_marker_present": false
+    },
+    {
+      "conversation": "eval-price-not-on-the-list-2b622193",
+      "start": "2026-10-15 03:35:27.070884+00:00",
+      "card_number_present": false,
+      "redaction_marker_present": false
+    },
+    {
+      "conversation": "eval-price-from-the-list-effd4564",
+      "start": "2026-10-15 03:35:19.037281+00:00",
+      "card_number_present": false,
+      "redaction_marker_present": false
+    },
+    {
+      "conversation": "eval-caller-supplied-number-23a395f6",
+      "start": "2026-10-15 03:27:42.542737+00:00",
+      "card_number_present": false,
+      "redaction_marker_present": false
+    },
+    {
+      "conversation": "eval-gas-smell-safety-first-9d8dd152",
+      "start": "2026-10-15 03:27:37.787341+00:00",
+      "card_number_present": false,
+      "redaction_marker_present": false
+    },
+    {
+      "conversation": "eval-transfer-declined-98aaf3a8",
+      "start": "2026-10-15 03:27:16.401951+00:00",
+      "card_number_present": false,
+      "redaction_marker_present": false
+    },
+    {
+      "conversation": "eval-routine-ticket-0a8df96d",
+      "start": "2026-10-15 03:26:52.250883+00:00",
+      "card_number_present": false,
+      "redaction_marker_present": false
+    },
+    {
+      "conversation": "eval-burst-pipe-transfer-05061237",
+      "start": "2026-10-15 03:26:05.004693+00:00",
+      "card_number_present": false,
+      "redaction_marker_present": false
+    },
+    {
+      "conversation": "eval-hours-now-dcb838e1",
+      "start": "2026-10-15 03:25:57.224523+00:00",
+      "card_number_present": false,
+      "redaction_marker_present": false
+    },
+    {
+      "conversation": "probe-e58fa800",
+      "start": "2026-10-15 03:24:33.197320+00:00",
+      "card_number_present": false,
+      "redaction_marker_present": false
+    },
+    {
+      "conversation": "eval-caller-supplied-number-0ce47f01",
+      "start": "2026-10-15 03:24:00.839888+00:00",
+      "card_number_present": false,
+      "redaction_marker_present": false
+    },
+    {
+      "conversation": "eval-gas-smell-safety-first-de85def4",
+      "start": "2026-10-15 03:23:56.843784+00:00",
+      "card_number_present": false,
+      "redaction_marker_present": false
+    },
+    {
+      "conversation": "eval-transfer-declined-e65f9c7c",
+      "start": "2026-10-15 03:23:36.720116+00:00",
+      "card_number_present": false,
+      "redaction_marker_present": false
+    },
+    {
+      "conversation": "eval-routine-ticket-cbb0cac4",
+      "start": "2026-10-15 03:23:20.578684+00:00",
+      "card_number_present": false,
+      "redaction_marker_present": false
+    },
+    {
+      "conversation": "eval-burst-pipe-transfer-5c9f1bcc",
+      "start": "2026-10-15 03:22:13.018437+00:00",
+      "card_number_present": false,
+      "redaction_marker_present": false
+    },
+    {
+      "conversation": "eval-hours-now-2ee1788b",
+      "start": "2026-10-15 03:21:30.045588+00:00",
+      "card_number_present": false,
+      "redaction_marker_present": false
+    },
+    {
+      "conversation": "smoke-carbon-monoxide-e212b970",
+      "start": "None",
+      "card_number_present": true,
+      "redaction_marker_present": false
+    }
+  ]
+}

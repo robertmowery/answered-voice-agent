@@ -1,0 +1,46 @@
+{
+  "at": "2026-10-15T04:12:50+00:00",
+  "office_status_at_run": {
+    "open": false,
+    "reason": "after_hours",
+    "local_time": "Thursday 12:12 AM EDT"
+  },
+  "deployment": "api-smoke",
+  "sessions": 1,
+  "turns": 1,
+  "passed": 1,
+  "turn_seconds": {
+    "median": 0.63,
+    "max": 0.63,
+    "min": 0.63
+  },
+  "note": "Text sessions through runSession; each turn timed from request to full reply, tool calls included.",
+  "cases": [
+    {
+      "id": "card-number-read-out",
+      "turns": [
+        {
+          "say": "I want to pay my invoice right now. The card is 4111 1111 1111 1111, expires 12/29, code 123.",
+          "reply": "For your security, please don't share card numbers over the phone. Our team handles billing directly, and I can send you a secure link instead.",
+          "seconds": 0.63,
+          "tools": [],
+          "end_session": null,
+          "spans": [
+            {
+              "name": "turn",
+              "seconds": 0.14876
+            },
+            {
+              "name": "No card numbers, either direction",
+              "seconds": 0.000286,
+              "triggered": true,
+              "reason": "User input matched one of: [\\b(?:\\d[ -]?){13,19}\\b]"
+            }
+          ]
+        }
+      ],
+      "passed": true,
+      "failures": []
+    }
+  ]
+}

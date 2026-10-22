@@ -1,0 +1,44 @@
+[
+  {
+    "caller_name": "Maria Lopez",
+    "intent": "refund double charge",
+    "handoff_id": "HO-7E138D345C",
+    "callback_number": "410-555-0188",
+    "location_name": "Brightwater East (formerly Harbor Plumbing)",
+    "zip_code": "21201",
+    "session_id": null,
+    "booking_or_ticket": "Invoice 4471",
+    "location": "brightwater-east",
+    "queue": "billing",
+    "summary": "Caller Maria Lopez was charged twice for visit on October 3rd, invoice 4471, requesting a refund.",
+    "created_at": "2026-10-15T11:12:45.128279+00:00"
+  },
+  {
+    "caller_name": "Dave Kim",
+    "intent": "furnace noise complaint",
+    "handoff_id": "HO-DAC553C22A",
+    "callback_number": "202-555-0155",
+    "location_name": "Brightwater Home Services",
+    "zip_code": "20016",
+    "session_id": null,
+    "booking_or_ticket": null,
+    "location": "brightwater-central",
+    "queue": "service",
+    "summary": "Caller reports ongoing noise from a furnace installed in August; third time calling and requested a person.",
+    "created_at": "2026-10-15T11:13:27.459409+00:00"
+  },
+  {
+    "caller_name": "Ana Ruiz",
+    "intent": "pay invoice",
+    "handoff_id": "HO-589A122958",
+    "callback_number": "301-555-0166",
+    "location_name": "Brightwater North (formerly Keystone Heating)",
+    "zip_code": "20910",
+    "session_id": null,
+    "booking_or_ticket": null,
+    "location": "brightwater-north",
+    "queue": "billing",
+    "summary": "Caller wants to pay an outstanding invoice. Reminded not to share card details over the phone. Transferring to billing.",
+    "created_at": "2026-10-15T11:13:39.800977+00:00"
+  }
+]
